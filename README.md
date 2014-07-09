@@ -1,6 +1,8 @@
-# DragonflyPdf
+**work in progress**
 
-Dragonfly analyser and processor for PDFs.
+# Dragonfly PDF
+
+[Dragonfly](https://github.com/markevans/dragonfly) analyser and processor for PDFs.
 
 IMPORTANT: Requires [ImageMagick](http://imagemagick.org)
 
