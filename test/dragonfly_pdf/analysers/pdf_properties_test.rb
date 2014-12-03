@@ -1,0 +1,94 @@
+require 'test_helper'
+
+module DragonflyPdf
+  module Analysers
+    describe PdfProperties do
+
+      let(:app) { test_app.configure_with(:pdf) }
+      let(:analyser) { DragonflyPdf::Analysers::PdfProperties.new }
+
+      let(:pages) { app.fetch_file(SAMPLES_DIR.join('sample_pages.pdf')) }
+      let(:spreads) { app.fetch_file(SAMPLES_DIR.join('sample_spreads.pdf')) }
+      let(:spreads_back) { app.fetch_file(SAMPLES_DIR.join('sample_spreads_back.pdf')) }
+      let(:spreads_cover) { app.fetch_file(SAMPLES_DIR.join('sample_spreads_cover.pdf')) }
+      let(:spreads_cover_back) { app.fetch_file(SAMPLES_DIR.join('sample_spreads_cover_back.pdf')) }
+
+      describe 'call' do
+        let(:pdf_properties) { analyser.call(pages) }
+
+        it 'returns Hash' do
+          pdf_properties.must_be_kind_of Hash
+        end
+      end
+
+      # ---------------------------------------------------------------------
+
+      describe ':page_numbers' do
+        describe 'for single page PDF' do
+          it 'returns one-dimensional array' do
+            analyser.call(pages)[:page_numbers].must_equal [1,2,3,4,5,6,7,8,9,10]
+          end
+        end
+
+        describe 'for PDF with spreads' do
+          it 'returns two-dimensional array' do
+            analyser.call(spreads, true)[:page_numbers].must_equal [[1,2],[3,4],[5,6],[7,8]]
+          end
+        end
+
+        describe 'for PDF with spreads and a cover' do
+          it 'returns two-dimensional array' do
+            analyser.call(spreads_cover, true)[:page_numbers].must_equal [[1],[2,3],[4,5],[6,7],[8,9]]
+          end
+        end
+
+        describe 'for PDF with spreads and a back cover' do
+          it 'returns two-dimensional array' do
+            analyser.call(spreads_back, true)[:page_numbers].must_equal [[1,2],[3,4],[5,6],[7,8],[9]]
+          end
+        end
+
+        describe 'for PDF with spreads and a front and a back cover' do
+          it 'returns two-dimensional array' do
+            analyser.call(spreads_cover_back, true)[:page_numbers].must_equal [[1],[2,3],[4,5],[6,7],[8,9],[10]]
+          end
+        end
+      end
+
+      # ---------------------------------------------------------------------
+
+      describe ':page_count' do
+        describe 'for single page PDF' do
+          it 'returns correct page count' do
+            analyser.call(pages)[:page_count].must_equal 10
+          end
+        end
+
+        describe 'for PDF with spreads' do
+          it 'returns correct page count' do
+            analyser.call(spreads, true)[:page_count].must_equal 8
+          end
+        end
+
+        describe 'for PDF with spreads and a cover' do
+          it 'returns correct page count' do
+            analyser.call(spreads_cover, true)[:page_count].must_equal 9
+          end
+        end
+
+        describe 'for PDF with spreads and a back cover' do
+          it 'returns correct page count' do
+            analyser.call(spreads_back, true)[:page_count].must_equal 9
+          end
+        end
+
+        describe 'for PDF with spreads and a front and a back cover' do
+          it 'returns correct page count' do
+            analyser.call(spreads_cover_back, true)[:page_count].must_equal 10
+          end
+        end
+      end
+
+    end
+  end
+end
