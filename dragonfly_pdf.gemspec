@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = DragonflyPdf::VERSION
   spec.authors       = ["Tomas Celizna"]
   spec.email         = ["tomas.celizna@gmail.com"]
-  spec.summary       = %q{Dragonfly analyser and processor for PDFs.}
-  spec.description   = %q{Dragonfly analyser and processor for PDFs.}
+  spec.summary       = %q{Dragonfly PDF analysers and processors.}
+  spec.description   = %q{Dragonfly PDF analysers and processors.}
   spec.homepage      = "https://github.com/tomasc/dragonfly_pdf"
   spec.license       = "MIT"
 
