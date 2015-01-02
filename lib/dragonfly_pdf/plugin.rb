@@ -7,30 +7,34 @@ module DragonflyPdf
     def call app, opts={}
       app.add_analyser :pdf_properties, DragonflyPdf::Analysers::PdfProperties.new
 
-      app.add_analyser :width do |content|
-        content.analyse(:pdf_properties)[:width]
+      app.add_analyser :page_count do |content|
+        content.analyse(:pdf_properties)[:page_count]
       end
-      
-      app.add_analyser :height do |content|
-        content.analyse(:pdf_properties)[:height]
-      end
-      
-      app.add_analyser :aspect_ratio do |content|
-        attrs = content.analyse(:pdf_properties)
-        attrs[:width].to_f / attrs[:height].to_f
-      end
-      
-      app.add_analyser :portrait do |content|
-        attrs = content.analyse(:pdf_properties)
-        attrs[:width] <= attrs[:height]
-      end
-      app.define(:portrait?) { portrait }
-      
-      app.add_analyser :landscape do |content|
-        !content.analyse(:portrait)
-      end
-      app.define(:landscape?) { landscape }
 
+      app.add_analyser :spread_count do |content|
+        content.analyse(:pdf_properties)[:spread_count]
+      end
+
+      app.add_analyser :page_numbers do |content|
+        content.analyse(:pdf_properties)[:page_numbers]
+      end
+
+      app.add_analyser :widths do |content|
+        content.analyse(:pdf_properties)[:widths]
+      end
+      
+      app.add_analyser :heights do |content|
+        content.analyse(:pdf_properties)[:heights]
+      end
+      
+      app.add_analyser :aspect_ratios do |content|
+        attrs = content.analyse(:pdf_properties)[:aspect_ratios]
+      end
+
+      app.add_analyser :info do |content|
+        attrs = content.analyse(:pdf_properties)[:info]
+      end
+      
       # ---------------------------------------------------------------------
       
       app.add_processor :page_thumb, DragonflyPdf::Processors::PageThumb.new

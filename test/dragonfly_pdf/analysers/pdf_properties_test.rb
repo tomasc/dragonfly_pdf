@@ -91,6 +91,40 @@ module DragonflyPdf
 
       # ---------------------------------------------------------------------
 
+      describe ':spread_count' do
+        describe 'for single page PDF' do
+          it 'returns correct page count' do
+            analyser.call(single_pages)[:spread_count].must_equal 10
+          end
+        end
+
+        describe 'for PDF with spreads' do
+          it 'returns correct page count' do
+            analyser.call(spreads, true)[:spread_count].must_equal 4
+          end
+        end
+
+        describe 'for PDF with spreads and a cover' do
+          it 'returns correct page count' do
+            analyser.call(spreads_cover, true)[:spread_count].must_equal 5
+          end
+        end
+
+        describe 'for PDF with spreads and a back cover' do
+          it 'returns correct page count' do
+            analyser.call(spreads_back, true)[:spread_count].must_equal 5
+          end
+        end
+
+        describe 'for PDF with spreads and a front and a back cover' do
+          it 'returns correct page count' do
+            analyser.call(spreads_cover_back, true)[:spread_count].must_equal 6
+          end
+        end
+      end
+
+      # ---------------------------------------------------------------------
+
       describe 'widths' do
         describe 'for single page PDF' do
           it 'returns widths' do

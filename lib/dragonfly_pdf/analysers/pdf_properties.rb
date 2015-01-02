@@ -9,6 +9,7 @@ module DragonflyPdf
 
         {
           page_count: page_count(pdf, spreads),
+          spread_count: spread_count(pdf, spreads),
           page_numbers: page_numbers(pdf, spreads),
           widths: widths(pdf, spreads),
           heights: heights(pdf, spreads),
@@ -129,6 +130,10 @@ module DragonflyPdf
       
       def page_count pdf, spreads
         page_numbers(pdf, spreads).flatten.count
+      end
+
+      def spread_count pdf, spreads
+        page_numbers(pdf, spreads).count
       end
 
       # =====================================================================

@@ -43,7 +43,8 @@ Returns Hash of PDF properties:
 
 ```ruby
 {
-    page_count: 4
+    page_count: 4,
+    spread_count: 3,
     page_numbers: [[1], [2, 3], [4]],
     widths: [[210.0], [210.0, 210.0], [210.0]],
     heights: [[297.0], [297.0, 297.0], [297.0]],
