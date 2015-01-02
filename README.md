@@ -23,7 +23,7 @@ Or install it yourself as:
 
     $ gem install dragonfly_pdf
 
-## Plugin
+## Usage
 The analyser and processors are added by configuring the plugin
 
 ```ruby
