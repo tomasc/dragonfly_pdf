@@ -36,74 +36,33 @@ The analyser supplies the following methods:
 
 This processor has argument `spreads` (by default set to false). When set to true, the analyser assumes the PDF might contain 2 real pages per one PDF page (as when saving with the spreads option in InDesign) and recalculates the PDF properties accordingly (including situations when PDF starts or ends with single page).
 
-```Ruby
-pdf.pdf_properties(false)
+```ruby
+pdf.pdf_properties(spreads=false)
 ```
 
-Returns Hash:
+Returns Hash of PDF properties:
 
-```Ruby
+```ruby
 {
-    page_count: 6
-    page_numbers: [[1], [2,3], [4,5], [6]]
-    widths: 
-    heights: 
-    aspect_ratios: 
-    info: 
+    page_count: 4
+    page_numbers: [[1], [2, 3], [4]],
+    widths: [[210.0], [210.0, 210.0], [210.0]],
+    heights: [[297.0], [297.0, 297.0], [297.0]],
+    aspect_ratios: [[0.71], [0.71, 0.71], [0.71]], 
+    info: { … }
 }
 ```
 
+When the `spreads` argument is set to true, all page arrays (page_numbers, widths, heights, aspect_ratios) are two dimensional (as illustrated above), representing spreads and nested individual pages.
+
 ## Processors
 
-### ExtendIds
+### PageThumb
 
-Adds a random string to the `id`. Helpful when embedding SVGs, in which case the `id` should be unique. You can also supply your own String.
-
-```ruby
-svg.extend_ids
-svg.extend_ids('foo')
-```
-
-### RemoveNamespaces
-
-Removes the `xmlns` namespace from the SVG.
+Generates thumbnail of a specified page, in defined density (dpi) and format. Similarly to the `#pdf_properties`, the `#page_thumb` processor takes into account the spreads argument.
 
 ```ruby
-svg.remove_namespaces
-```
-
-### SetDimensions
-
-Sets the dimensions of the SVG. Takes two parameters: `width` and `height`
-
-```ruby
-svg.set_dimensions(210, 297)
-```
-
-### SetNamespace
-
-Sets the `xmlns` namespace of the SVG. Default is `http://www.w3.org/2000/svg` unless something is supplied.
-
-```ruby
-svg.set_namespace                     # xmlns="http://www.w3.org/2000/svg"
-svg.set_namespace('foo')              # xmlns="foo"
-```
-
-### SetPreserveAspectRatio
-
-Sets the `preserveAspectRatio` attribute of the SVG. Default is `xMinYMin meet` unless something is supplied.
-
-```ruby
-svg.set_preserve_aspect_ratio         # preserveAspectRatio="xMinYMin meet"
-svg.set_preserve_aspect_ratio('foo')  # preserveAspectRatio="foo"
-```
-
-### SetViewBox
-
-Sets the `viewBox` attribute of the SVG. Takes four parameters: `min_x`, `min_y`, `width` and `height`.
-
-```ruby
-svg.set_viewbox(0, 0, 400, 600)       # viewBox="0 0 400 600"
+pdf.page_thumb(page_number=0, spreads=false, density=600, format=:tif)
 ```
 
 ## Contributing
