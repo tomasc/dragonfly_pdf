@@ -70,14 +70,14 @@ The available options and their default values are:
 ```ruby
 {
     density: 600,
-    format: :tif,
+    format: :png,
     spreads: false
 }
 ```
 
 ## TODO
 
-* Add more tests on `#page_thumb`
+* Add more tests for `#page_thumb`
 
 ## Contributing
 
