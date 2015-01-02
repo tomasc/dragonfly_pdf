@@ -4,6 +4,11 @@
 
 [Dragonfly](https://github.com/markevans/dragonfly) PDF analysers and processors.
 
+## Dependencies
+
+* [ImageMagick](http://www.imagemagick.org)
+* [GhostScript](http://www.ghostscript.com)
+
 ## Installation
 
 Add this line to your application's Gemfile:
