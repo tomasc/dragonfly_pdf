@@ -94,7 +94,7 @@ module DragonflyPdf
       describe '#spread_count' do
         describe 'for single page PDF' do
           it 'returns correct page count' do
-            analyser.call(single_pages)[:spread_count].must_equal false
+            analyser.call(single_pages)[:spread_count].must_equal 0
           end
         end
 
