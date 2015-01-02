@@ -30,7 +30,6 @@ end
 ```
 
 ## Analyser
-The analyser supplies the following methods:
 
 ### PDF properties
 
@@ -57,7 +56,7 @@ When the `spreads` argument is set to true, all page arrays (page_numbers, width
 
 ## Processors
 
-### PageThumb
+### Page Thumb
 
 Generates thumbnail of a specified page, in defined density (dpi) and format. Similarly to the `#pdf_properties`, the `#page_thumb` processor takes into account the spreads argument.
 
