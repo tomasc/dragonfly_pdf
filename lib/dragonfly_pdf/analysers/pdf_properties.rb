@@ -133,6 +133,7 @@ module DragonflyPdf
       end
 
       def spread_count pdf, spreads
+        return false unless spreads
         page_numbers(pdf, spreads).count
       end
 
