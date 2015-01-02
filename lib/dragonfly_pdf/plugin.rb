@@ -1,4 +1,6 @@
 require 'dragonfly_pdf/analysers/pdf_properties'
+
+require 'dragonfly_pdf/processors/page'
 require 'dragonfly_pdf/processors/page_thumb'
 
 module DragonflyPdf
@@ -38,6 +40,7 @@ module DragonflyPdf
       # ---------------------------------------------------------------------
       
       app.add_processor :page_thumb, DragonflyPdf::Processors::PageThumb.new
+      app.add_processor :page, DragonflyPdf::Processors::Page.new
     end
 
   end

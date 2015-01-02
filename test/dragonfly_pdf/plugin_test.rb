@@ -32,5 +32,17 @@ module DragonflyPdf
       end
     end
 
+
+    # ---------------------------------------------------------------------
+    
+    describe 'processors' do
+      it 'adds #page' do
+        pdf.must_respond_to :page
+      end
+      it 'adds #page_thumb' do
+        pdf.must_respond_to :page_thumb
+      end
+    end
+
   end
 end

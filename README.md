@@ -55,6 +55,22 @@ When the `spreads` argument is set to true, all page arrays (page_numbers, width
 
 ## Processors
 
+### Page
+
+Extracts page from a PDF.
+
+```ruby
+pdf.page_thumb(page_number=0, opts={})
+```
+
+The available options and their default values are:
+
+```ruby
+{
+    spreads: false
+}
+```
+
 ### Page Thumb
 
 Generates thumbnail of a specified page, in defined density (dpi) and format.
@@ -72,12 +88,6 @@ The available options and their default values are:
     spreads: false
 }
 ```
-
-Similarly to the `#pdf_properties`, the `#page_thumb` processor takes into account the `spreads` option.
-
-## TODO
-
-* Add more tests for `#page_thumb`
 
 ## Contributing
 
