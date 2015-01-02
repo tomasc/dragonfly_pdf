@@ -4,12 +4,8 @@ module DragonflyPdf
   module Processors
     class PageThumb
 
-      class UnsupportedFormat < RuntimeError; end
-
-      def call content, page_number=0, opts={}
+      def call content, page_number=1, opts={}
         format = opts.fetch(:format, :png)
-        # raise UnsupportedFormat unless %w(tif jpg jpeg png gif).include?(format.to_s)
-
         density = opts.fetch(:density, 600)
         spreads = opts.fetch(:spreads, false)
 
@@ -17,6 +13,8 @@ module DragonflyPdf
         crop_args = ''
 
         pdf_properties = DragonflyPdf::Analysers::PdfProperties.new.call(content, spreads)
+
+        raise DragonflyPdf::PageNotFound unless pdf_properties[:page_numbers].flatten.include?(page_number)
 
         if spreads
           spread = pdf_properties[:page_numbers].detect{ |s| s.include?(page_number) }
@@ -27,7 +25,7 @@ module DragonflyPdf
           pdf_page_number = spread_number
           crop_args = "-crop 50%x100% -delete #{page_to_delete}"
         else
-          pdf_page_number = page_number
+          pdf_page_number = page_number-1
         end
 
         content.shell_update(ext: format) do |old_path, new_path|

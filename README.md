@@ -57,10 +57,10 @@ When the `spreads` argument is set to true, all page arrays (page_numbers, width
 
 ### Page
 
-Extracts page from a PDF.
+Extracts page from PDF.
 
 ```ruby
-pdf.page_thumb(page_number=0, opts={})
+pdf.page_thumb(page_number=1, opts={})
 ```
 
 The available options and their default values are:
@@ -76,7 +76,7 @@ The available options and their default values are:
 Generates thumbnail of a specified page, in defined density (dpi) and format.
 
 ```ruby
-pdf.page_thumb(page_number=0, opts={})
+pdf.page_thumb(page_number=1, opts={})
 ```
 
 The available options and their default values are:

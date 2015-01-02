@@ -15,8 +15,13 @@ module DragonflyPdf
       let(:spreads_cover_back) { Dragonfly::Content.new(app, SAMPLES_DIR.join('sample_spreads_cover_back.pdf')) }
 
       it 'returns PNG by default' do
-        processor.call(single_pages, 0, density: 72)
+        processor.call(single_pages, 1, density: 72)
         get_mime_type(single_pages.path).must_include "image/png"
+      end
+
+      it 'raises PageNotFound error' do
+        proc { processor.call(single_pages, 0) }.must_raise DragonflyPdf::PageNotFound
+        proc { processor.call(single_pages, 11) }.must_raise DragonflyPdf::PageNotFound
       end
 
       # ---------------------------------------------------------------------
@@ -24,7 +29,7 @@ module DragonflyPdf
       describe 'single pages' do
         it 'renders page' do
           skip
-          processor.call(single_pages, 0, density: 72)
+          processor.call(single_pages, 1, density: 72)
         end
       end
 

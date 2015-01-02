@@ -17,8 +17,13 @@ module DragonflyPdf
       # =====================================================================
 
       it 'returns PDF by default' do
-        processor.call(single_pages, 0)
+        processor.call(single_pages, 1)
         get_mime_type(single_pages.path).must_include "application/pdf"
+      end
+
+      it 'raises PageNotFound error' do
+        proc { processor.call(single_pages, 0) }.must_raise DragonflyPdf::PageNotFound
+        proc { processor.call(single_pages, 11) }.must_raise DragonflyPdf::PageNotFound
       end
 
       # ---------------------------------------------------------------------
@@ -28,7 +33,7 @@ module DragonflyPdf
           processor.call(single_pages, 1)
           pdf = PDF::Reader.new(single_pages.path)
           pdf.pages.count.must_equal 1
-          pdf.pages.first.text.must_equal '2'
+          pdf.pages.first.text.must_equal '1'
         end
       end
 
