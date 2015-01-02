@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'pdf-reader'
 
 module DragonflyPdf
   module Processors
@@ -21,12 +22,37 @@ module DragonflyPdf
       # ---------------------------------------------------------------------
 
       describe 'single pages' do
+        it 'renders page' do
+          skip
+          processor.call(single_pages, 1, density: 72)
+        end
       end
 
       describe 'spreads' do
         it 'recalculates the page number correctly' do
-          processor.call(spreads, 3, density: 72, spreads: true)
           skip
+          processor.call(spreads, 3, density: 72, spreads: true)
+        end
+      end
+
+      describe 'spreads_back' do
+        it 'recalculates the page number correctly' do
+          skip
+          processor.call(spreads_back, 3, density: 72, spreads: true)
+        end
+      end
+
+      describe 'spreads_cover' do
+        it 'recalculates the page number correctly' do
+          skip
+          processor.call(spreads_cover, 3, density: 72, spreads: true)
+        end
+      end
+
+      describe 'spreads_cover_back' do
+        it 'recalculates the page number correctly' do
+          skip
+          processor.call(spreads_cover_back, 3, density: 72, spreads: true)
         end
       end
 
