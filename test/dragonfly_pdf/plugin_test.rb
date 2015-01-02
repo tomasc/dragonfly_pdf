@@ -8,27 +8,29 @@ module DragonflyPdf
 
     # ---------------------------------------------------------------------
 
-    # describe 'analysers' do
-    #   it 'adds #svg_properties' do
-    #     svg.must_respond_to :svg_properties
-    #   end
+    describe 'analysers' do
+      it 'adds #width' do
+        pdf.must_respond_to :width
+      end
+      it 'adds #height' do
+        pdf.must_respond_to :height
+      end
+      it 'adds #aspect_ratio' do
+        pdf.must_respond_to :aspect_ratio
+      end
+      it 'adds #portrait' do
+        pdf.must_respond_to :portrait
+        pdf.must_respond_to :portrait?
+      end
+      it 'adds #landscape' do
+        pdf.must_respond_to :landscape
+        pdf.must_respond_to :landscape?
+      end
 
-    #   it 'adds #width' do
-    #     svg.must_respond_to :width
-    #   end
-
-    #   it 'adds #height' do
-    #     svg.must_respond_to :height
-    #   end
-
-    #   it 'adds #aspect_ratio' do
-    #     svg.must_respond_to :aspect_ratio
-    #   end
-
-    #   it 'adds #id' do
-    #     svg.must_respond_to :id
-    #   end
-    # end
+      # it 'adds #id' do
+      #   svg.must_respond_to :id
+      # end
+    end
 
     # ---------------------------------------------------------------------
 
