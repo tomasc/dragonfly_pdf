@@ -23,7 +23,7 @@ module DragonflyPdf
 
       # ---------------------------------------------------------------------
 
-      describe ':page_numbers' do
+      describe '#page_numbers' do
         describe 'for single page PDF' do
           it 'returns one-dimensional array' do
             analyser.call(single_pages)[:page_numbers].must_equal [1,2,3,4,5,6,7,8,9,10]
@@ -57,7 +57,7 @@ module DragonflyPdf
 
       # ---------------------------------------------------------------------
 
-      describe ':page_count' do
+      describe '#page_count' do
         describe 'for single page PDF' do
           it 'returns correct page count' do
             analyser.call(single_pages)[:page_count].must_equal 10
@@ -91,7 +91,7 @@ module DragonflyPdf
 
       # ---------------------------------------------------------------------
 
-      describe ':spread_count' do
+      describe '#spread_count' do
         describe 'for single page PDF' do
           it 'returns correct page count' do
             analyser.call(single_pages)[:spread_count].must_equal 10
@@ -125,7 +125,7 @@ module DragonflyPdf
 
       # ---------------------------------------------------------------------
 
-      describe 'widths' do
+      describe '#widths' do
         describe 'for single page PDF' do
           it 'returns widths' do
             analyser.call(single_pages)[:widths].must_equal [210.0, 210.0, 210.0, 210.0, 210.0, 210.0, 210.0, 210.0, 210.0, 210.0]
@@ -159,7 +159,7 @@ module DragonflyPdf
 
       # ---------------------------------------------------------------------
 
-      describe 'heights' do
+      describe '#heights' do
         describe 'for single page PDF' do
           it 'returns heights' do
             analyser.call(single_pages)[:heights].must_equal [297.0, 297.0, 297.0, 297.0, 297.0, 297.0, 297.0, 297.0, 297.0, 297.0]
@@ -193,7 +193,7 @@ module DragonflyPdf
 
       # ---------------------------------------------------------------------
 
-      describe 'aspect_ratios' do
+      describe '#aspect_ratios' do
         describe 'for single page PDF' do
           it 'returns aspect ratios' do
             analyser.call(single_pages)[:aspect_ratios].map{ |i| i.round(2) }.must_equal [0.71, 0.71, 0.71, 0.71, 0.71, 0.71, 0.71, 0.71, 0.71, 0.71]
@@ -227,7 +227,7 @@ module DragonflyPdf
 
       # ---------------------------------------------------------------------
 
-      describe 'info' do
+      describe '#info' do
         it 'returns Hash' do
           analyser.call(single_pages)[:info].must_be_kind_of Hash
         end
