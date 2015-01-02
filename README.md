@@ -2,9 +2,7 @@
 
 [![Build Status](https://travis-ci.org/tomasc/dragonfly_pdf.svg)](https://travis-ci.org/tomasc/dragonfly_pdf) [![Gem Version](https://badge.fury.io/rb/dragonfly_pdf.svg)](http://badge.fury.io/rb/dragonfly_pdf) [![Coverage Status](https://img.shields.io/coveralls/tomasc/dragonfly_pdf.svg)](https://coveralls.io/r/tomasc/dragonfly_pdf)
 
-[Dragonfly](https://github.com/markevans/dragonfly) analyser and processors for SVGs.
-
-Uses the [nokogiri](http://nokogiri.org) gem for SVG parsing.
+[Dragonfly](https://github.com/markevans/dragonfly) PDF analysers and processors.
 
 ## Installation
 
@@ -29,7 +27,7 @@ Dragonfly.app.configure do
 end
 ```
 
-## Analyser
+## Analysers
 
 ### PDF properties
 
