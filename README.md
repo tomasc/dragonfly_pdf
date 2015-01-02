@@ -39,7 +39,15 @@ end
 This processor has argument `spreads` (by default set to `false`). When `true`, the analyser assumes the PDF might contain 2 real pages per one PDF page (as when saving with the spreads option in InDesign) and recalculates the PDF properties accordingly (including situations when PDF starts or ends with single page).
 
 ```ruby
-pdf.pdf_properties(spreads=false)
+pdf.pdf_properties(opts={})
+```
+
+The available options and their default values are:
+
+```ruby
+{
+    spreads: false
+}
 ```
 
 Returns Hash of PDF properties:

@@ -11,7 +11,7 @@ module DragonflyPdf
         pdf_page_number = page_number
         crop_args = ''
 
-        pdf_properties = DragonflyPdf::Analysers::PdfProperties.new.call(content, spreads)
+        pdf_properties = DragonflyPdf::Analysers::PdfProperties.new.call(content, spreads: spreads)
 
         raise DragonflyPdf::PageNotFound unless pdf_properties[:page_numbers].flatten.include?(page_number)
 

@@ -4,7 +4,9 @@ module DragonflyPdf
   module Analysers
     class PdfProperties
 
-      def call content, spreads=false
+      def call content, opts={}
+        spreads = opts.fetch(:spreads, false)
+
         pdf = PDF::Reader.new(content.file)
 
         {
