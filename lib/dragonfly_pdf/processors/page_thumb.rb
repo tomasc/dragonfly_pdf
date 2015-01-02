@@ -5,18 +5,18 @@ module DragonflyPdf
     class PageThumb
 
       def call content, page_number=0, spreads=false, density=600, format=:tif, options={}
-        if spreads
-          # get dimensions of all pages
-          # TODO: Use analyser?
-          page_dimensions = raw_identify(temp_object, '-density 12 -format "%W," -define pdf:use-cropbox=true -define pdf:use-trimbox=true').split(",").reject(&:blank?).map(&:to_i)
+        # if spreads
+        #   # get dimensions of all pages
+        #   # TODO: Use analyser?
+        #   page_dimensions = raw_identify(temp_object, '-density 12 -format "%W," -define pdf:use-cropbox=true -define pdf:use-trimbox=true').split(",").reject(&:blank?).map(&:to_i)
 
-          # make a map of these pages
-          # index is page we are looking for, value is page in pdf
-          page_map = []
+        #   # make a map of these pages
+        #   # index is page we are looking for, value is page in pdf
+        #   page_map = []
 
-          # go through all pages in pdf
-          real_page = 0
-        end
+        #   # go through all pages in pdf
+        #   real_page = 0
+        # end
       end
 
 
@@ -88,7 +88,15 @@ module DragonflyPdf
       #   end
       # end
 
-      # private # =============================================================
+      private # =============================================================
+
+      def pdf_page_number page_number, spreads
+        return 1
+      end
+
+      def pdf_crop_args page_number, spreads
+        return
+      end
 
       # def pdf_convert temp_object=nil, pre_args='', args='', page_number=0, density=600, format=:tif
       #   tempfile = new_tempfile(format)
