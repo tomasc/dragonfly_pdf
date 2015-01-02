@@ -57,7 +57,7 @@ When the `spreads` argument is set to true, all page arrays (page_numbers, width
 
 ### Page Thumb
 
-Generates thumbnail of a specified page, in defined density (dpi) and format. Similarly to the `#pdf_properties`, the `#page_thumb` processor takes into account the spreads argument.
+Generates thumbnail of a specified page, in defined density (dpi) and format.
 
 ```ruby
 pdf.page_thumb(page_number=0, opts={})
@@ -72,6 +72,8 @@ The available options and their default values are:
     spreads: false
 }
 ```
+
+Similarly to the `#pdf_properties`, the `#page_thumb` processor takes into account the `spreads` option.
 
 ## TODO
 
