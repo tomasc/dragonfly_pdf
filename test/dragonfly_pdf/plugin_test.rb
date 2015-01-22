@@ -9,6 +9,12 @@ module DragonflyPdf
     # ---------------------------------------------------------------------
 
     describe 'analysers' do
+      it 'adds #pdf_properties' do
+        pdf.must_respond_to :pdf_properties
+      end
+      it 'allows an options parameter on #pdf_properties' do
+        pdf.pdf_properties.must_be_kind_of Hash
+      end
       it 'adds #page_count' do
         pdf.must_respond_to :page_count
       end
@@ -32,9 +38,8 @@ module DragonflyPdf
       end
     end
 
-
     # ---------------------------------------------------------------------
-    
+
     describe 'processors' do
       it 'adds #page' do
         pdf.must_respond_to :page
