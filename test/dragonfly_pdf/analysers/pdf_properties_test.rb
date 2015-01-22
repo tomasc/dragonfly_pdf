@@ -13,6 +13,13 @@ module DragonflyPdf
       let(:spreads_cover) { app.fetch_file(SAMPLES_DIR.join('sample_spreads_cover.pdf')) }
       let(:spreads_cover_back) { app.fetch_file(SAMPLES_DIR.join('sample_spreads_cover_back.pdf')) }
 
+      before do
+        spreads.meta['spreads'] = true
+        spreads_cover.meta['spreads'] = true
+        spreads_back.meta['spreads'] = true
+        spreads_cover_back.meta['spreads'] = true
+      end
+
       describe 'call' do
         let(:pdf_properties) { analyser.call(single_pages) }
 
@@ -32,25 +39,25 @@ module DragonflyPdf
 
         describe 'for PDF with spreads' do
           it 'returns two-dimensional array' do
-            analyser.call(spreads, spreads: true)[:page_numbers].must_equal [[1,2],[3,4],[5,6],[7,8]]
+            analyser.call(spreads)[:page_numbers].must_equal [[1,2],[3,4],[5,6],[7,8]]
           end
         end
 
         describe 'for PDF with spreads and a cover' do
           it 'returns two-dimensional array' do
-            analyser.call(spreads_cover, spreads: true)[:page_numbers].must_equal [[1],[2,3],[4,5],[6,7],[8,9]]
+            analyser.call(spreads_cover)[:page_numbers].must_equal [[1],[2,3],[4,5],[6,7],[8,9]]
           end
         end
 
         describe 'for PDF with spreads and a back cover' do
           it 'returns two-dimensional array' do
-            analyser.call(spreads_back, spreads: true)[:page_numbers].must_equal [[1,2],[3,4],[5,6],[7,8],[9]]
+            analyser.call(spreads_back)[:page_numbers].must_equal [[1,2],[3,4],[5,6],[7,8],[9]]
           end
         end
 
         describe 'for PDF with spreads and a front and a back cover' do
           it 'returns two-dimensional array' do
-            analyser.call(spreads_cover_back, spreads: true)[:page_numbers].must_equal [[1],[2,3],[4,5],[6,7],[8,9],[10]]
+            analyser.call(spreads_cover_back)[:page_numbers].must_equal [[1],[2,3],[4,5],[6,7],[8,9],[10]]
           end
         end
       end
@@ -66,25 +73,25 @@ module DragonflyPdf
 
         describe 'for PDF with spreads' do
           it 'returns correct page count' do
-            analyser.call(spreads, spreads: true)[:page_count].must_equal 8
+            analyser.call(spreads)[:page_count].must_equal 8
           end
         end
 
         describe 'for PDF with spreads and a cover' do
           it 'returns correct page count' do
-            analyser.call(spreads_cover, spreads: true)[:page_count].must_equal 9
+            analyser.call(spreads_cover)[:page_count].must_equal 9
           end
         end
 
         describe 'for PDF with spreads and a back cover' do
           it 'returns correct page count' do
-            analyser.call(spreads_back, spreads: true)[:page_count].must_equal 9
+            analyser.call(spreads_back)[:page_count].must_equal 9
           end
         end
 
         describe 'for PDF with spreads and a front and a back cover' do
           it 'returns correct page count' do
-            analyser.call(spreads_cover_back, spreads: true)[:page_count].must_equal 10
+            analyser.call(spreads_cover_back)[:page_count].must_equal 10
           end
         end
       end
@@ -100,25 +107,25 @@ module DragonflyPdf
 
         describe 'for PDF with spreads' do
           it 'returns correct page count' do
-            analyser.call(spreads, spreads: true)[:spread_count].must_equal 4
+            analyser.call(spreads)[:spread_count].must_equal 4
           end
         end
 
         describe 'for PDF with spreads and a cover' do
           it 'returns correct page count' do
-            analyser.call(spreads_cover, spreads: true)[:spread_count].must_equal 5
+            analyser.call(spreads_cover)[:spread_count].must_equal 5
           end
         end
 
         describe 'for PDF with spreads and a back cover' do
           it 'returns correct page count' do
-            analyser.call(spreads_back, spreads: true)[:spread_count].must_equal 5
+            analyser.call(spreads_back)[:spread_count].must_equal 5
           end
         end
 
         describe 'for PDF with spreads and a front and a back cover' do
           it 'returns correct page count' do
-            analyser.call(spreads_cover_back, spreads: true)[:spread_count].must_equal 6
+            analyser.call(spreads_cover_back)[:spread_count].must_equal 6
           end
         end
       end
@@ -134,25 +141,25 @@ module DragonflyPdf
 
         describe 'for PDF with spreads' do
           it 'returns widths' do
-            analyser.call(spreads, spreads: true)[:widths].must_equal [[210.0, 210.0], [210.0, 210.0], [210.0, 210.0], [210.0, 210.0]]
+            analyser.call(spreads)[:widths].must_equal [[210.0, 210.0], [210.0, 210.0], [210.0, 210.0], [210.0, 210.0]]
           end
         end
 
         describe 'for PDF with spreads and a cover' do
           it 'returns correct widths' do
-            analyser.call(spreads_cover, spreads: true)[:widths].must_equal [[210.0], [210.0, 210.0], [210.0, 210.0], [210.0, 210.0], [210.0, 210.0]]
+            analyser.call(spreads_cover)[:widths].must_equal [[210.0], [210.0, 210.0], [210.0, 210.0], [210.0, 210.0], [210.0, 210.0]]
           end
         end
 
         describe 'for PDF with spreads and a back cover' do
           it 'returns correct widths' do
-            analyser.call(spreads_back, spreads: true)[:widths].must_equal [[210.0, 210.0], [210.0, 210.0], [210.0, 210.0], [210.0, 210.0], [210.0]]
+            analyser.call(spreads_back)[:widths].must_equal [[210.0, 210.0], [210.0, 210.0], [210.0, 210.0], [210.0, 210.0], [210.0]]
           end
         end
 
         describe 'for PDF with spreads and a front and a back cover' do
           it 'returns correct widths' do
-            analyser.call(spreads_cover_back, spreads: true)[:widths].must_equal [[210.0], [210.0, 210.0], [210.0, 210.0], [210.0, 210.0], [210.0, 210.0], [210.0]]
+            analyser.call(spreads_cover_back)[:widths].must_equal [[210.0], [210.0, 210.0], [210.0, 210.0], [210.0, 210.0], [210.0, 210.0], [210.0]]
           end
         end
       end
@@ -168,25 +175,25 @@ module DragonflyPdf
 
         describe 'for PDF with spreads' do
           it 'returns heights' do
-            analyser.call(spreads, spreads: true)[:heights].must_equal [[297.0, 297.0], [297.0, 297.0], [297.0, 297.0], [297.0, 297.0]]
+            analyser.call(spreads)[:heights].must_equal [[297.0, 297.0], [297.0, 297.0], [297.0, 297.0], [297.0, 297.0]]
           end
         end
 
         describe 'for PDF with spreads and a cover' do
           it 'returns correct heights' do
-            analyser.call(spreads_cover, spreads: true)[:heights].must_equal [[297.0], [297.0, 297.0], [297.0, 297.0], [297.0, 297.0], [297.0, 297.0]]
+            analyser.call(spreads_cover)[:heights].must_equal [[297.0], [297.0, 297.0], [297.0, 297.0], [297.0, 297.0], [297.0, 297.0]]
           end
         end
 
         describe 'for PDF with spreads and a back cover' do
           it 'returns correct heights' do
-            analyser.call(spreads_back, spreads: true)[:heights].must_equal [[297.0, 297.0], [297.0, 297.0], [297.0, 297.0], [297.0, 297.0], [297.0]]
+            analyser.call(spreads_back)[:heights].must_equal [[297.0, 297.0], [297.0, 297.0], [297.0, 297.0], [297.0, 297.0], [297.0]]
           end
         end
 
         describe 'for PDF with spreads and a front and a back cover' do
           it 'returns correct heights' do
-            analyser.call(spreads_cover_back, spreads: true)[:heights].must_equal [[297.0], [297.0, 297.0], [297.0, 297.0], [297.0, 297.0], [297.0, 297.0], [297.0]]
+            analyser.call(spreads_cover_back)[:heights].must_equal [[297.0], [297.0, 297.0], [297.0, 297.0], [297.0, 297.0], [297.0, 297.0], [297.0]]
           end
         end
       end
@@ -202,25 +209,25 @@ module DragonflyPdf
 
         describe 'for PDF with spreads' do
           it 'returns aspect ratios' do
-            analyser.call(spreads, spreads: true)[:aspect_ratios].map{ |i| i.is_a?(Array) ? i.map{ |j| j.round(2) } : i.round(2) }.must_equal [[0.71, 0.71], [0.71, 0.71], [0.71, 0.71], [0.71, 0.71]]
+            analyser.call(spreads)[:aspect_ratios].map{ |i| i.is_a?(Array) ? i.map{ |j| j.round(2) } : i.round(2) }.must_equal [[0.71, 0.71], [0.71, 0.71], [0.71, 0.71], [0.71, 0.71]]
           end
         end
 
         describe 'for PDF with spreads and a cover' do
           it 'returns correct aspect ratios' do
-            analyser.call(spreads_cover, spreads: true)[:aspect_ratios].map{ |i| i.is_a?(Array) ? i.map{ |j| j.round(2) } : i.round(2) }.must_equal [[0.71], [0.71, 0.71], [0.71, 0.71], [0.71, 0.71], [0.71, 0.71]]
+            analyser.call(spreads_cover)[:aspect_ratios].map{ |i| i.is_a?(Array) ? i.map{ |j| j.round(2) } : i.round(2) }.must_equal [[0.71], [0.71, 0.71], [0.71, 0.71], [0.71, 0.71], [0.71, 0.71]]
           end
         end
 
         describe 'for PDF with spreads and a back cover' do
           it 'returns correct aspect ratios' do
-            analyser.call(spreads_back, spreads: true)[:aspect_ratios].map{ |i| i.is_a?(Array) ? i.map{ |j| j.round(2) } : i.round(2) }.must_equal [[0.71, 0.71], [0.71, 0.71], [0.71, 0.71], [0.71, 0.71], [0.71]]
+            analyser.call(spreads_back)[:aspect_ratios].map{ |i| i.is_a?(Array) ? i.map{ |j| j.round(2) } : i.round(2) }.must_equal [[0.71, 0.71], [0.71, 0.71], [0.71, 0.71], [0.71, 0.71], [0.71]]
           end
         end
 
         describe 'for PDF with spreads and a front and a back cover' do
           it 'returns correct aspect ratios' do
-            analyser.call(spreads_cover_back, spreads: true)[:aspect_ratios].map{ |i| i.is_a?(Array) ? i.map{ |j| j.round(2) } : i.round(2) }.must_equal [[0.71], [0.71, 0.71], [0.71, 0.71], [0.71, 0.71], [0.71, 0.71], [0.71]]
+            analyser.call(spreads_cover_back)[:aspect_ratios].map{ |i| i.is_a?(Array) ? i.map{ |j| j.round(2) } : i.round(2) }.must_equal [[0.71], [0.71, 0.71], [0.71, 0.71], [0.71, 0.71], [0.71, 0.71], [0.71]]
           end
         end
       end
