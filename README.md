@@ -32,25 +32,25 @@ Dragonfly.app.configure do
 end
 ```
 
+### Spreads
+
+PDFs that contain spreads (as when saving with the spreads option in InDesign) require setting the `spreads` [metadata](http://markevans.github.io/dragonfly/models/#meta-data) attribute to `true`:
+
+```ruby
+pdf.metadata['spreads'] = true
+```
+
 ## Analysers
 
 ### PDF properties
 
-This processor has argument `spreads` (by default set to `false`). When `true`, the analyser assumes the PDF might contain 2 real pages per one PDF page (as when saving with the spreads option in InDesign) and recalculates the PDF properties accordingly (including situations when PDF starts or ends with single page).
+Reads properties from a PDF.
 
 ```ruby
-pdf.pdf_properties(opts={})
+pdf.pdf_properties
 ```
 
-The available options and their default values are:
-
-```ruby
-{
-    spreads: false
-}
-```
-
-Returns Hash of PDF properties:
+It returns a hash of properties:
 
 ```ruby
 {
@@ -64,7 +64,7 @@ Returns Hash of PDF properties:
 }
 ```
 
-When the `spreads` argument is set to true, all page arrays (page_numbers, widths, heights, aspect_ratios) are two dimensional (as illustrated above), representing spreads and nested individual pages.
+When the `spreads` metadata is set to `true`, the analyser assumes the PDF contains 2 real pages per one PDF page and recalculates the PDF properties accordingly (including situations when PDF starts or ends with single page). All page arrays (`page_numbers`, `widths`, `heights`, `aspect_ratios`) are then two dimensional (as illustrated above), representing spreads and nested individual pages.
 
 ## Processors
 
@@ -73,15 +73,7 @@ When the `spreads` argument is set to true, all page arrays (page_numbers, width
 Extracts page from PDF.
 
 ```ruby
-pdf.page(page_number=1, opts={})
-```
-
-The available options and their default values are:
-
-```ruby
-{
-    spreads: false
-}
+pdf.page(page_number=1)
 ```
 
 ### Page Thumb
@@ -98,7 +90,6 @@ The available options and their default values are:
 {
     density: 600,
     format: :png,
-    spreads: false
 }
 ```
 
