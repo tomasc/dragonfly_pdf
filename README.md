@@ -64,7 +64,7 @@ It returns a hash of properties:
 }
 ```
 
-When the `spreads` metadata is set to `true`, the analyser assumes the PDF contains 2 real pages per one PDF page and recalculates the PDF properties accordingly (including situations where the PDF begins or ends with single page). All page arrays (`page_numbers`, `widths`, `heights`, `aspect_ratios`) are then two dimensional (as illustrated above), representing spreads and nested individual pages.
+When the `spreads` metadata is set to `true`, the analyser assumes the PDF contains 2 real pages per one PDF page and recalculates the PDF properties accordingly (including situations where the PDF begins or ends with a single page). All page arrays (`page_numbers`, `widths`, `heights`, `aspect_ratios`) are then two dimensional (as illustrated above), representing spreads and nested individual pages.
 
 ## Processors
 
