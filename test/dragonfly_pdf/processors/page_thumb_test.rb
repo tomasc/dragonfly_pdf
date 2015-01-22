@@ -14,6 +14,15 @@ module DragonflyPdf
       let(:spreads_cover) { Dragonfly::Content.new(app, SAMPLES_DIR.join('sample_spreads_cover.pdf')) }
       let(:spreads_cover_back) { Dragonfly::Content.new(app, SAMPLES_DIR.join('sample_spreads_cover_back.pdf')) }
 
+      before do
+        spreads.meta['spreads'] = true
+        spreads_cover.meta['spreads'] = true
+        spreads_back.meta['spreads'] = true
+        spreads_cover_back.meta['spreads'] = true
+      end
+
+      # =====================================================================
+
       it 'returns PNG by default' do
         processor.call(single_pages, 1, density: 72)
         get_mime_type(single_pages.path).must_include "image/png"
@@ -62,7 +71,7 @@ module DragonflyPdf
       end
 
       # ---------------------------------------------------------------------
-      
+
       def get_mime_type file_path
         `file --mime-type #{file_path}`.gsub(/\n/, "")
       end

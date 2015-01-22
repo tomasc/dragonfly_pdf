@@ -7,12 +7,12 @@ module DragonflyPdf
       def call content, page_number=1, opts={}
         format = opts.fetch(:format, :png)
         density = opts.fetch(:density, 600)
-        spreads = opts.fetch(:spreads, false)
+        spreads = content.meta['spreads'] || false
 
         args = "-alpha deactivate -background white -colorspace sRGB -density #{density}x#{density} -define pdf:use-cropbox=true -define pdf:use-trimbox=true"
         crop_args = ''
 
-        pdf_properties = DragonflyPdf::Analysers::PdfProperties.new.call(content, spreads: spreads)
+        pdf_properties = DragonflyPdf::Analysers::PdfProperties.new.call(content)
 
         raise DragonflyPdf::PageNotFound unless pdf_properties[:page_numbers].flatten.include?(page_number)
 
@@ -35,7 +35,7 @@ module DragonflyPdf
         content.meta['format'] = format.to_s
         content.ext = format
       end
-   
+
       def update_url attrs, args='', opts={}
         format = opts['format']
         attrs.ext = format if format
