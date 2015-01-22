@@ -4,19 +4,19 @@ module DragonflyPdf
   module Analysers
     class PdfProperties
 
-      def call content, opts={}
-        spreads = opts.fetch(:spreads, false)
+      def call content
+        spreads = content.meta['spreads'] || false
 
         pdf = PDF::Reader.new(content.file)
 
         {
-          page_count: page_count(pdf, spreads),
-          spread_count: spread_count(pdf, spreads),
-          page_numbers: page_numbers(pdf, spreads),
-          widths: widths(pdf, spreads),
-          heights: heights(pdf, spreads),
           aspect_ratios: aspect_ratios(pdf, spreads),
-          info: pdf.info
+          heights: heights(pdf, spreads),
+          info: pdf.info,
+          page_count: page_count(pdf, spreads),
+          page_numbers: page_numbers(pdf, spreads),
+          spread_count: spread_count(pdf, spreads),
+          widths: widths(pdf, spreads)
         }
       end
 
