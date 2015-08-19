@@ -37,7 +37,7 @@ end
 PDFs that contain spreads (as when saving with the spreads option in InDesign) require setting the `spreads` [metadata](http://markevans.github.io/dragonfly/models/#meta-data) attribute to `true`:
 
 ```ruby
-pdf.metadata['spreads'] = true
+pdf.meta['spreads'] = true
 ```
 
 ## Analysers
@@ -59,7 +59,7 @@ It returns a hash of properties:
     page_numbers: [[1], [2, 3], [4]],
     widths: [[210.0], [210.0, 210.0], [210.0]],
     heights: [[297.0], [297.0, 297.0], [297.0]],
-    aspect_ratios: [[0.71], [0.71, 0.71], [0.71]], 
+    aspect_ratios: [[0.71], [0.71, 0.71], [0.71]],
     info: { … }
 }
 ```
