@@ -93,6 +93,14 @@ The available options and their default values are:
 }
 ```
 
+### Subset Fonts
+
+Subset fonts in PDF.
+
+```ruby
+pdf.subset_fonts
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/tomasc/dragonfly_pdf/fork )
