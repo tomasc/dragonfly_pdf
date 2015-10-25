@@ -6,7 +6,7 @@ module DragonflyPdf
 
       def call content, page_number=1, opts={}
         format = opts.fetch(:format, :png)
-        density = opts.fetch(:density, 600)
+        density = opts.fetch(:density, 150)
         spreads = content.meta['spreads'] || false
 
         args = "-alpha deactivate -background white -colorspace sRGB -density #{density}x#{density} -define pdf:use-cropbox=true -define pdf:use-trimbox=true"
@@ -36,8 +36,9 @@ module DragonflyPdf
         content.ext = format
       end
 
-      def update_url attrs, args='', opts={}
+      def update_url attrs, page_number, opts={}
         format = opts['format']
+        attrs.page_number = page_number
         attrs.ext = format if format
       end
 
