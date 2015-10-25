@@ -12,7 +12,6 @@ module DragonflyPdf
         {
           aspect_ratios: aspect_ratios(pdf, spreads),
           heights: heights(pdf, spreads),
-          info: pdf.info,
           page_count: page_count(pdf, spreads),
           page_numbers: page_numbers(pdf, spreads),
           spread_count: spread_count(pdf, spreads),
@@ -48,7 +47,7 @@ module DragonflyPdf
       end
 
       # ---------------------------------------------------------------------
-        
+
       def heights pdf, spreads
         pdf_page_heights = pdf.pages.map do |page|
           media_box = page.attributes[:MediaBox]
@@ -75,7 +74,7 @@ module DragonflyPdf
       end
 
       # ---------------------------------------------------------------------
-        
+
       def aspect_ratios pdf, spreads
         pdf_aspect_ratios = widths(pdf, false).zip(heights(pdf, false)).map do |width, height|
           (width / height)
@@ -101,7 +100,7 @@ module DragonflyPdf
       end
 
       # ---------------------------------------------------------------------
-        
+
       def page_numbers pdf, spreads
         return pdf.pages.collect { |p| p.number } unless spreads
 
@@ -129,7 +128,7 @@ module DragonflyPdf
       end
 
       # ---------------------------------------------------------------------
-      
+
       def page_count pdf, spreads
         page_numbers(pdf, spreads).flatten.count
       end
@@ -140,7 +139,7 @@ module DragonflyPdf
       end
 
       # =====================================================================
-      
+
       def pt2mm pt
         (pt / 72.0) * 25.4
       end
