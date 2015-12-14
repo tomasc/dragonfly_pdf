@@ -5,8 +5,8 @@ module DragonflyPdf
     class PageThumb
 
       def call content, page_number=1, opts={}
-        format = opts.fetch(:format, :png)
-        density = opts.fetch(:density, 150)
+        format = opts['format'] || :png
+        density = opts['density'] || 150
         spreads = content.meta['spreads'] || false
 
         args = "-alpha deactivate -background white -colorspace sRGB -density #{density}x#{density} -define pdf:use-cropbox=true -define pdf:use-trimbox=true"
