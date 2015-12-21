@@ -32,10 +32,6 @@ module DragonflyPdf
         attrs = content.analyse(:pdf_properties)[:aspect_ratios]
       end
 
-      app.add_analyser :info do |content|
-        attrs = content.analyse(:pdf_properties)[:info]
-      end
-
       # ---------------------------------------------------------------------
 
       app.add_processor :page_thumb, DragonflyPdf::Processors::PageThumb.new
