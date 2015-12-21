@@ -10,12 +10,8 @@ module DragonflyPdf
       let(:single_pages) { app.fetch_file(SAMPLES_DIR.join('sample_pages.pdf')) }
       let(:spreads) { app.fetch_file(SAMPLES_DIR.join('sample_spreads.pdf')) }
 
-      describe 'call' do
-        let(:pdf_properties) { analyser.call(single_pages) }
-
-        it 'returns Hash' do
-          pdf_properties.must_be_kind_of Hash
-        end
+      it 'returns Hash' do
+        analyser.call(single_pages).must_be_kind_of Hash
       end
 
       describe '#page_numbers' do
