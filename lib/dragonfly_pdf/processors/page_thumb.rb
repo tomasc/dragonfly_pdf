@@ -3,23 +3,23 @@ require_relative '../analysers/pdf_properties'
 module DragonflyPdf
   module Processors
     class PageThumb
-      def call content, page_number=1, opts={}
+      def call(content, page_number = 1, opts = {})
         @content = content
         @page_number = page_number
         @format = opts['format'] || :png
         @density = opts['density'] || 150
 
-        raise DragonflyPdf::PageNotFound unless pdf_properties[:page_numbers].include?(@page_number)
+        fail DragonflyPdf::PageNotFound unless pdf_properties[:page_numbers].include?(@page_number)
 
         content.shell_update(ext: @format) do |old_path, new_path|
           "#{convert_command} #{old_path}[#{pdf_page_number}] #{new_path}"
         end
 
-        @content.meta['format'] = format.to_s
-        @content.ext = format
+        @content.meta['format'] = @format.to_s
+        @content.ext = @format
       end
 
-      def update_url attrs, page_number, opts={}
+      def update_url(attrs, page_number, opts = {})
         format = opts['format']
         attrs.page_number = page_number
         attrs.ext = format if format
@@ -36,7 +36,7 @@ module DragonflyPdf
       end
 
       def pdf_page_number
-        @page_number-1
+        @page_number - 1
       end
     end
   end

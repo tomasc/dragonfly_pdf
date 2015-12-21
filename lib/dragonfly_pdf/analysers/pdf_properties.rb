@@ -3,9 +3,10 @@ require 'pdf-reader'
 module DragonflyPdf
   module Analysers
     class PdfProperties
-
-      def call(content)
+      def call(content, options = {})
         @content = content
+        @use_cropbox = options.fetch :use_cropbox, true
+        @use_trimbox = options.fetch :use_trimbox, true
         {
           aspect_ratios: aspect_ratios,
           heights: heights,
@@ -19,8 +20,13 @@ module DragonflyPdf
       private # =============================================================
 
       def page_dimensions
-        @page_dimensions ||= "#{identify_command} -format \"%[pdf:HiResBoundingBox]\" #{@content.path}".scan(/(\d+?)x(\d+?)\+\d\+\d/).map do |page|
-          page = page.map(&:to_f) 
+        @page_dimensions ||= begin
+          res = @content.shell_eval do |path|
+            "#{identify_command} -format '%Wx%H,' #{path}"
+          end
+          res.to_s.split(/\s*,\s*/).compact.map do |page|
+            page = page.split(/\s*x\s*/).map(&:to_f).map { |n| pt2mm(n) }
+          end
         end
       end
 
@@ -38,7 +44,7 @@ module DragonflyPdf
 
       def aspect_ratios
         page_dimensions.inject([]) do |res, page|
-          res << page[1]/page[0]
+          res << page[0] / page[1]
         end
       end
 
@@ -52,12 +58,12 @@ module DragonflyPdf
 
       # =====================================================================
 
-      def pt2mm pt
+      def pt2mm(pt)
         (pt / 72.0) * 25.4
       end
 
       def identify_command
-        "identify -density 12 -define pdf:use-cropbox=true -define pdf:use-trimbox=true"
+        "identify -define pdf:use-cropbox=#{@use_cropbox} -define pdf:use-trimbox=#{@use_trimbox}"
       end
     end
   end
