@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'pdf-reader'
 
 module DragonflyPdf
   module Processors

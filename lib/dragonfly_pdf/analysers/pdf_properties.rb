@@ -1,5 +1,3 @@
-require 'pdf-reader'
-
 module DragonflyPdf
   module Analysers
     class PdfProperties

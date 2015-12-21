@@ -1,4 +1,3 @@
-require 'pdf-reader'
 require_relative '../errors'
 require_relative '../analysers/pdf_properties'
 

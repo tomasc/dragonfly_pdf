@@ -7,6 +7,8 @@ require 'minitest/spec'
 require 'dragonfly'
 require 'dragonfly_pdf'
 
+require 'pdf-reader'
+
 # ---------------------------------------------------------------------
 
 SAMPLES_DIR = Pathname.new(File.expand_path('../../samples', __FILE__))
