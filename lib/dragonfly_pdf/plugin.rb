@@ -1,12 +1,10 @@
 require 'dragonfly_pdf/analysers/pdf_properties'
-
 require 'dragonfly_pdf/processors/page'
 require 'dragonfly_pdf/processors/page_thumb'
 require 'dragonfly_pdf/processors/subset_fonts'
 
 module DragonflyPdf
   class Plugin
-
     def call app, opts={}
       app.add_analyser :pdf_properties, DragonflyPdf::Analysers::PdfProperties.new
 
@@ -14,12 +12,12 @@ module DragonflyPdf
         content.analyse(:pdf_properties)[:page_count]
       end
 
-      app.add_analyser :spread_count do |content|
-        content.analyse(:pdf_properties)[:spread_count]
-      end
-
       app.add_analyser :page_numbers do |content|
         content.analyse(:pdf_properties)[:page_numbers]
+      end
+
+      app.add_analyser :page_dimensions do |content|
+        content.analyse(:pdf_properties)[:page_dimensions]
       end
 
       app.add_analyser :widths do |content|
@@ -34,17 +32,12 @@ module DragonflyPdf
         attrs = content.analyse(:pdf_properties)[:aspect_ratios]
       end
 
-      app.add_analyser :info do |content|
-        attrs = content.analyse(:pdf_properties)[:info]
-      end
-
       # ---------------------------------------------------------------------
 
       app.add_processor :page_thumb, DragonflyPdf::Processors::PageThumb.new
       app.add_processor :page, DragonflyPdf::Processors::Page.new
       app.add_processor :subset_fonts, DragonflyPdf::Processors::SubsetFonts.new
     end
-
   end
 end
 
