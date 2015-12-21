@@ -1,10 +1,8 @@
 module DragonflyPdf
   module Processors
     describe SubsetFonts do
-
       let(:app) { test_app.configure_with(:pdf) }
       let(:processor) { DragonflyPdf::Processors::SubsetFonts.new }
-
       let(:sample_pdf) { Dragonfly::Content.new(app, SAMPLES_DIR.join('sample_pages.pdf')) }
 
       # =====================================================================
@@ -19,7 +17,6 @@ module DragonflyPdf
       def get_mime_type file_path
         `file --mime-type #{file_path}`.gsub(/\n/, "")
       end
-
     end
   end
 end
