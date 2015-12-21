@@ -2,7 +2,7 @@ language: ruby
 cache: bundler
 script: 'bundle exec rake'
 rvm:
-  - 2.1.2
+  - 1.9.3
 
 notifications:
   email:
