@@ -18,6 +18,10 @@ module DragonflyPdf
         content.analyse(:pdf_properties)[:page_numbers]
       end
 
+      app.add_analyser :page_dimensions do |content|
+        content.analyse(:pdf_properties)[:page_dimensions]
+      end
+
       app.add_analyser :widths do |content|
         content.analyse(:pdf_properties)[:widths]
       end
