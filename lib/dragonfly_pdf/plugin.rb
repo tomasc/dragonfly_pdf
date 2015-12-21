@@ -1,12 +1,10 @@
 require 'dragonfly_pdf/analysers/pdf_properties'
-
 require 'dragonfly_pdf/processors/page'
 require 'dragonfly_pdf/processors/page_thumb'
 require 'dragonfly_pdf/processors/subset_fonts'
 
 module DragonflyPdf
   class Plugin
-
     def call app, opts={}
       app.add_analyser :pdf_properties, DragonflyPdf::Analysers::PdfProperties.new
 
@@ -44,7 +42,6 @@ module DragonflyPdf
       app.add_processor :page, DragonflyPdf::Processors::Page.new
       app.add_processor :subset_fonts, DragonflyPdf::Processors::SubsetFonts.new
     end
-
   end
 end
 
