@@ -32,14 +32,6 @@ Dragonfly.app.configure do
 end
 ```
 
-### Spreads
-
-PDFs that contain spreads (as when saving with the spreads option in InDesign) require setting the `spreads` [metadata](http://markevans.github.io/dragonfly/models/#meta-data) attribute to `true`:
-
-```ruby
-pdf.meta['spreads'] = true
-```
-
 ## Analysers
 
 ### PDF properties
@@ -55,15 +47,12 @@ It returns a hash of properties:
 ```ruby
 {
     page_count: 4,
-    spread_count: 3,
-    page_numbers: [[1], [2, 3], [4]],
-    widths: [[210.0], [210.0, 210.0], [210.0]],
-    heights: [[297.0], [297.0, 297.0], [297.0]],
-    aspect_ratios: [[0.71], [0.71, 0.71], [0.71]]
+    page_numbers: [1, 2, 3, 4],
+    widths: [210.0, 210.0, 210.0, 210.0],
+    heights: [297.0, 297.0, 297.0, 297.0],
+    aspect_ratios: [0.71, 0.71, 0.71, 0.71]
 }
 ```
-
-When the `spreads` metadata is set to `true`, the analyser assumes the PDF contains 2 real pages per one PDF page and recalculates the PDF properties accordingly (including situations where the PDF begins or ends with a single page). All page arrays (`page_numbers`, `widths`, `heights`, `aspect_ratios`) are then two dimensional (as illustrated above), representing spreads and nested individual pages.
 
 ## Processors
 
