@@ -14,10 +14,6 @@ module DragonflyPdf
         content.analyse(:pdf_properties)[:page_count]
       end
 
-      app.add_analyser :spread_count do |content|
-        content.analyse(:pdf_properties)[:spread_count]
-      end
-
       app.add_analyser :page_numbers do |content|
         content.analyse(:pdf_properties)[:page_numbers]
       end
