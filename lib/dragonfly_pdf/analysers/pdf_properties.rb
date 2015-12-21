@@ -4,138 +4,50 @@ module DragonflyPdf
   module Analysers
     class PdfProperties
 
-      def call content
-        spreads = content.meta['spreads'] || false
-
-        pdf = PDF::Reader.new(content.file)
-
+      def call(content)
+        @content = content
         {
-          aspect_ratios: aspect_ratios(pdf, spreads),
-          heights: heights(pdf, spreads),
-          page_count: page_count(pdf, spreads),
-          page_numbers: page_numbers(pdf, spreads),
-          spread_count: spread_count(pdf, spreads),
-          widths: widths(pdf, spreads)
+          aspect_ratios: aspect_ratios,
+          heights: heights,
+          page_count: page_count,
+          page_dimensions: page_dimensions,
+          page_numbers: page_numbers,
+          widths: widths
         }
       end
 
       private # =============================================================
 
-      def widths pdf, spreads
-        pdf_page_widths = pdf.pages.map do |page|
-          media_box = page.attributes[:MediaBox]
-          pt2mm(media_box[2] - media_box[0]).round(2)
+      def page_dimensions
+        @page_dimensions ||= "#{identify_command} -format \"%[pdf:HiResBoundingBox]\" #{@content.path}".scan(/(\d+?)x(\d+?)\+\d\+\d/).map do |page|
+          page = page.map(&:to_f) 
         end
-
-        return pdf_page_widths unless spreads
-
-        res = []
-        i = 0
-        spread = []
-        page_numbers(pdf, spreads).each do |s|
-          if s.count == 1
-            spread << pdf_page_widths[i]
-          else
-            spread << pdf_page_widths[i]/2
-            spread << pdf_page_widths[i]/2
-          end
-          res << spread
-          spread = []
-          i = i+1
-        end
-        res
       end
 
-      # ---------------------------------------------------------------------
-
-      def heights pdf, spreads
-        pdf_page_heights = pdf.pages.map do |page|
-          media_box = page.attributes[:MediaBox]
-          pt2mm(media_box[3] - media_box[1]).round(2)
+      def widths
+        page_dimensions.inject([]) do |res, page|
+          res << page[0]
         end
-
-        return pdf_page_heights unless spreads
-
-        res = []
-        i = 0
-        spread = []
-        page_numbers(pdf, spreads).each do |s|
-          if s.count == 1
-            spread << pdf_page_heights[i]
-          else
-            spread << pdf_page_heights[i]
-            spread << pdf_page_heights[i]
-          end
-          res << spread
-          spread = []
-          i = i+1
-        end
-        res
       end
 
-      # ---------------------------------------------------------------------
-
-      def aspect_ratios pdf, spreads
-        pdf_aspect_ratios = widths(pdf, false).zip(heights(pdf, false)).map do |width, height|
-          (width / height)
+      def heights
+        page_dimensions.inject([]) do |res, page|
+          res << page[1]
         end
-
-        return pdf_aspect_ratios unless spreads
-
-        res = []
-        i = 0
-        spread = []
-        page_numbers(pdf, spreads).each do |s|
-          if s.count == 1
-            spread << pdf_aspect_ratios[i]
-          else
-            spread << pdf_aspect_ratios[i]/2
-            spread << pdf_aspect_ratios[i]/2
-          end
-          res << spread
-          spread = []
-          i = i+1
-        end
-        res
       end
 
-      # ---------------------------------------------------------------------
-
-      def page_numbers pdf, spreads
-        return pdf.pages.collect { |p| p.number } unless spreads
-
-        page_widths = widths(pdf, false)
-        single_page_width = page_widths.uniq.count == 1 ? -9999999 : widths(pdf, false).min
-
-        i = 1
-        res = []
-        spread = []
-
-        page_widths.each do |page_width|
-          if page_width > single_page_width
-            spread << i
-            i = i+1
-            spread << i
-          else
-            spread << i
-          end
-          res << spread
-          spread = []
-          i = i+1
+      def aspect_ratios
+        page_dimensions.inject([]) do |res, page|
+          res << page[1]/page[0]
         end
-
-        res
       end
 
-      # ---------------------------------------------------------------------
-
-      def page_count pdf, spreads
-        page_numbers(pdf, spreads).flatten.count
+      def page_numbers
+        (1..page_count).to_a
       end
 
-      def spread_count pdf, spreads
-        return 0 unless spreads
-        page_numbers(pdf, spreads).count
+      def page_count
+        page_dimensions.count
       end
 
       # =====================================================================
@@ -144,6 +56,9 @@ module DragonflyPdf
         (pt / 72.0) * 25.4
       end
 
+      def identify_command
+        "identify -density 12 -define pdf:use-cropbox=true -define pdf:use-trimbox=true"
+      end
     end
   end
 end
