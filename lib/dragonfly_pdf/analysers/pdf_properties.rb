@@ -5,11 +5,12 @@ module DragonflyPdf
         @content = content
         @use_cropbox = options.fetch :use_cropbox, true
         @use_trimbox = options.fetch :use_trimbox, true
+        @page_dimensions = page_dimensions
         {
           aspect_ratios: aspect_ratios,
           heights: heights,
           page_count: page_count,
-          page_dimensions: page_dimensions,
+          page_dimensions: @page_dimensions,
           page_numbers: page_numbers,
           widths: widths
         }
@@ -18,40 +19,40 @@ module DragonflyPdf
       private # =============================================================
 
       def page_dimensions
-        @page_dimensions ||= begin
-          res = @content.shell_eval do |path|
-            "#{identify_command} -format '%Wx%H,' #{path}"
-          end
-          res.to_s.split(/\s*,\s*/).compact.map do |page|
-            page = page.split(/\s*x\s*/).map(&:to_f).map { |n| pt2mm(n) }
-          end
+        res = @content.shell_eval do |path|
+          "#{identify_command} -format '%Wx%H,' #{path}"
+        end
+        res.to_s.split(/\s*,\s*/).compact.map do |page|
+          page = page.split(/\s*x\s*/).map(&:to_f).map { |n| pt2mm(n) }
         end
       end
 
+      # ---------------------------------------------------------------------
+
       def widths
-        page_dimensions.inject([]) do |res, page|
+        @page_dimensions.inject([]) do |res, page|
           res << page[0]
         end
       end
 
       def heights
-        page_dimensions.inject([]) do |res, page|
+        @page_dimensions.inject([]) do |res, page|
           res << page[1]
         end
       end
 
       def aspect_ratios
-        page_dimensions.inject([]) do |res, page|
+        @page_dimensions.inject([]) do |res, page|
           res << page[0] / page[1]
         end
       end
 
-      def page_numbers
-        (1..page_count).to_a
+      def page_count
+        @page_dimensions.count
       end
 
-      def page_count
-        page_dimensions.count
+      def page_numbers
+        (1..page_count).to_a
       end
 
       # =====================================================================
