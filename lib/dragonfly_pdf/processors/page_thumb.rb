@@ -9,7 +9,7 @@ module DragonflyPdf
         @format = opts['format'] || :png
         @density = opts['density'] || 150
 
-        fail DragonflyPdf::PageNotFound unless pdf_properties[:page_numbers].include?(@page_number)
+        # fail DragonflyPdf::PageNotFound unless pdf_properties[:page_numbers].include?(@page_number)
 
         content.shell_update(ext: @format) do |old_path, new_path|
           "#{convert_command} #{old_path}[#{pdf_page_number}] #{new_path}"

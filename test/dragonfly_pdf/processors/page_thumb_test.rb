@@ -15,6 +15,7 @@ module DragonflyPdf
       end
 
       it 'raises PageNotFound error' do
+        skip 'calling the page properties slows evrything down'
         proc { processor.call(sample_pages, 0) }.must_raise DragonflyPdf::PageNotFound
         proc { processor.call(sample_pages, 11) }.must_raise DragonflyPdf::PageNotFound
       end
