@@ -57,12 +57,12 @@ It returns a hash of properties:
 
 ## Processors
 
-### Combine
+### Append
 
-Combine multiple PDFs.
+Append PDFs.
 
 ```ruby
-pdf.combine([pdf_1, pdf_2, pdf_3])
+pdf.append([pdf_1, pdf_2, pdf_3])
 ```
 
 ### Page

@@ -2,9 +2,9 @@ require 'test_helper'
 
 module DragonflyPdf
   module Processors
-    describe Combine do
+    describe Append do
       let(:app) { test_app.configure_with(:pdf) }
-      let(:processor) { DragonflyPdf::Processors::Combine.new }
+      let(:processor) { DragonflyPdf::Processors::Append.new }
       let(:sample_1) { Dragonfly::Content.new(app, SAMPLES_DIR.join('sample_pages.pdf')) }
       let(:sample_2) { Dragonfly::Content.new(app, SAMPLES_DIR.join('sample_pages_with_bleed.pdf')) }
 

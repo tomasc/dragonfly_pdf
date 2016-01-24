@@ -2,7 +2,7 @@ require 'combine_pdf'
 
 module DragonflyPdf
   module Processors
-    class Combine
+    class Append
       def call(content, pdfs_to_append, _options = {})
         result = CombinePDF.new
 
