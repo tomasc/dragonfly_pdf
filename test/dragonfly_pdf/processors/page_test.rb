@@ -1,3 +1,4 @@
+require 'pdf-reader'
 require 'test_helper'
 
 module DragonflyPdf
@@ -6,6 +7,7 @@ module DragonflyPdf
       let(:app) { test_app.configure_with(:pdf) }
       let(:processor) { DragonflyPdf::Processors::Page.new }
       let(:sample_pages) { Dragonfly::Content.new(app, SAMPLES_DIR.join('sample_pages.pdf')) }
+      let(:result) { PDF::Reader.new(sample_pages.path) }
 
       # =====================================================================
 
@@ -22,9 +24,8 @@ module DragonflyPdf
       describe 'single pages' do
         it 'renders page' do
           processor.call(sample_pages, 1)
-          pdf = PDF::Reader.new(sample_pages.path)
-          pdf.pages.count.must_equal 1
-          pdf.pages.first.text.must_equal '1'
+          result.pages.count.must_equal 1
+          result.pages.first.text.must_equal '1'
         end
       end
 

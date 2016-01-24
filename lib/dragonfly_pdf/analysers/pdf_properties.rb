@@ -2,67 +2,33 @@ module DragonflyPdf
   module Analysers
     class PdfProperties
       def call(content, options = {})
-        @content = content
-        @use_cropbox = options.fetch :use_cropbox, true
-        @use_trimbox = options.fetch :use_trimbox, true
-        @page_dimensions = page_dimensions
+        box_type = options.fetch :box_type, 'TrimBox'
+        box_data = content.data.scan(/(MediaBox|CropBox|BleedBox|TrimBox)\s?\[([\d\.]+?)\s([\d\.]+?)\s([\d\.]+?)\s([\d\.]+?)\]/)
+        # drop last value, since that comes from data about all pages
+        media_box = box_data.select { |d| d.first == 'MediaBox' }[0..-2]
+        desired_box = box_data.select { |d| d.first == box_type }
+
+        page_dimensions = (desired_box.length > 0 ? desired_box : media_box).map do |dim|
+          i = dim[1..-1].map(&:to_f).map{ |d| pt2mm(d) }
+          [ i[2]-i[0], i[3]-i[1] ]
+        end
+
+        page_count = page_dimensions.count
+        aspect_ratios = page_dimensions.inject([]) { |res, page| res << (page.first / page.last) }
+        page_numbers = (1..page_count).to_a
+
         {
           aspect_ratios: aspect_ratios,
-          heights: heights,
           page_count: page_count,
-          page_dimensions: @page_dimensions,
-          page_numbers: page_numbers,
-          widths: widths
+          page_dimensions: page_dimensions,
+          page_numbers: page_numbers
         }
       end
 
       private # =============================================================
 
-      def page_dimensions
-        res = @content.shell_eval do |path|
-          "#{identify_command} -format '%Wx%H,' #{path}"
-        end
-        res.to_s.split(/\s*,\s*/).compact.map do |page|
-          page = page.split(/\s*x\s*/).map(&:to_f).map { |n| pt2mm(n) }
-        end
-      end
-
-      # ---------------------------------------------------------------------
-
-      def widths
-        @page_dimensions.inject([]) do |res, page|
-          res << page[0]
-        end
-      end
-
-      def heights
-        @page_dimensions.inject([]) do |res, page|
-          res << page[1]
-        end
-      end
-
-      def aspect_ratios
-        @page_dimensions.inject([]) do |res, page|
-          res << page[0] / page[1]
-        end
-      end
-
-      def page_count
-        @page_dimensions.count
-      end
-
-      def page_numbers
-        (1..page_count).to_a
-      end
-
-      # =====================================================================
-
       def pt2mm(pt)
         (pt / 72.0) * 25.4
-      end
-
-      def identify_command
-        "identify -define pdf:use-cropbox=#{@use_cropbox} -define pdf:use-trimbox=#{@use_trimbox}"
       end
     end
   end

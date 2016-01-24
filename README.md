@@ -8,6 +8,7 @@
 
 * [ImageMagick](http://www.imagemagick.org)
 * [GhostScript](http://www.ghostscript.com)
+* [pdftk](https://www.pdflabs.com/tools/pdftk-server)
 
 ## Installation
 
@@ -89,6 +90,22 @@ The available options and their default values are:
     format: :png,
 }
 ```
+
+### Rotate
+
+Rotate all pages.
+
+```ruby
+pdf.rotate(:left)
+```
+
+Rotate selected pages.
+```ruby
+pdf.rotate(1 => :left, 3 => :right)
+```
+
+absolute: `north|south|east|west`
+relative: `left|right|down`
 
 ### Stamp
 

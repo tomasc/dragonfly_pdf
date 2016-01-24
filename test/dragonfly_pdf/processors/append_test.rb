@@ -1,3 +1,4 @@
+require 'pdf-reader'
 require 'test_helper'
 
 module DragonflyPdf
@@ -7,18 +8,20 @@ module DragonflyPdf
       let(:processor) { DragonflyPdf::Processors::Append.new }
       let(:sample_1) { Dragonfly::Content.new(app, SAMPLES_DIR.join('sample_pages.pdf')) }
       let(:sample_2) { Dragonfly::Content.new(app, SAMPLES_DIR.join('sample_pages_with_bleed.pdf')) }
+      let(:result) { PDF::Reader.new(sample_1.path) }
 
       # =====================================================================
 
-      it 'returns PDF by default' do
+      before do
         processor.call(sample_1, [sample_2])
+      end
+
+      it 'returns PDF by default' do
         get_mime_type(sample_1.path).must_include 'application/pdf'
       end
 
       it 'has total number of pages' do
-        processor.call(sample_1, [sample_2])
-        pdf = PDF::Reader.new(sample_1.path)
-        pdf.pages.count.must_equal 11
+        result.pages.count.must_equal 11
       end
 
       # ---------------------------------------------------------------------
