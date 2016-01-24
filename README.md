@@ -40,13 +40,7 @@ end
 Reads properties from a PDF.
 
 ```ruby
-pdf.pdf_properties
-```
-
-It returns a hash of properties:
-
-```ruby
-{
+pdf.pdf_properties # => {
     page_count: 4,
     page_dimensions: [[210.0, 297.0], [210.0, 297.0], [210.0, 297.0], [210.0, 297.0]],
     page_numbers: [1, 2, 3, 4],
@@ -55,6 +49,14 @@ It returns a hash of properties:
     aspect_ratios: [0.71, 0.71, 0.71, 0.71]
 }
 ```
+
+Optionally pass box type (`MediaBox|CropBox|BleedBox|TrimBox`):
+
+```ruby
+pdf.pdf_properties(box_type: 'MediaBox')
+```
+
+By default `TrimBox`, with a fallback to `MediaBox`.
 
 ## Processors
 
