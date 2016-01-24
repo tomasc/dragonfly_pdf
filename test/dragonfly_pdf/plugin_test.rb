@@ -31,6 +31,10 @@ module DragonflyPdf
       it 'adds #aspect_ratios' do
         pdf.must_respond_to :aspect_ratios
       end
+
+      it 'adds #page_rotations' do
+        pdf.must_respond_to :page_rotations
+      end
     end
 
     # ---------------------------------------------------------------------

@@ -23,8 +23,8 @@ module DragonflyPdf
         content.analyse(:pdf_properties)[:page_dimensions]
       end
 
-      app.add_analyser :rotate do |content|
-        content.analyse(:pdf_properties)[:rotate]
+      app.add_analyser :page_rotations do |content|
+        content.analyse(:pdf_properties)[:page_rotations]
       end
 
       app.add_analyser :aspect_ratios do |content|
