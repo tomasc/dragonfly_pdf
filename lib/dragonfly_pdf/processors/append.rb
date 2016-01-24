@@ -1,16 +1,16 @@
-require 'combine_pdf'
-
 module DragonflyPdf
   module Processors
     class Append
       def call(content, pdfs_to_append, _options = {})
-        result = CombinePDF.new
-
-        ([content] + pdfs_to_append).each do |pdf|
-          CombinePDF.parse(pdf.data).pages.each { |page| result << page }
+        content.shell_update(ext: :pdf) do |old_path, new_path|
+          "#{pdftk_command} #{old_path} #{pdfs_to_append.map(&:path).join(' ')} cat output #{new_path}"
         end
+      end
 
-        content.update(result.to_pdf)
+      private # =============================================================
+
+      def pdftk_command
+        "pdftk"
       end
     end
   end

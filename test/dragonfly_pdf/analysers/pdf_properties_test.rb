@@ -27,23 +27,9 @@ module DragonflyPdf
       end
 
       describe '#page_dimensions' do
-        it 'returns widths' do
+        it 'returns array of page dimensions' do
           analyser.call(sample_pages)[:page_dimensions].map{ |p| p.map(&:round) }.must_equal [[210, 297]].cycle.take(10)
           analyser.call(sample_pages_with_bleed)[:page_dimensions].map{ |p| p.map(&:round) }.must_equal [[210, 297]].cycle.take(1)
-        end
-      end
-
-      describe '#widths' do
-        it 'returns widths' do
-          analyser.call(sample_pages)[:widths].map(&:round).must_equal [210].cycle.take(10)
-          analyser.call(sample_pages_with_bleed)[:widths].map(&:round).must_equal [210].cycle.take(1)
-        end
-      end
-
-      describe '#heights' do
-        it 'returns heights' do
-          analyser.call(sample_pages)[:heights].map(&:round).must_equal [297].cycle.take(10)
-          analyser.call(sample_pages_with_bleed)[:heights].map(&:round).must_equal [297].cycle.take(1)
         end
       end
 

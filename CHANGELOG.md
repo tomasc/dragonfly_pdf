@@ -1,7 +1,10 @@
-## 0.1.1
+## 0.2.0
 
-* added: `append` which allows to combine multiple PDFs together
-* added: `stamp` which allows for stamping all pages of a PDF with content of another PDF
+* refactor: read PDF attributes directly
+* dependency: `pdftk` for adjustments to PDFs
+* added: `append` to combine multiple PDFs together
+* added: `rotate` to rotate pages of a PDF
+* added: `stamp` to stamping pages with content of another PDF
 
 ## 0.1.0
 

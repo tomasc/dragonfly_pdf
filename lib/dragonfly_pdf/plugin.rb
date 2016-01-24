@@ -2,6 +2,7 @@ require 'dragonfly_pdf/analysers/pdf_properties'
 require 'dragonfly_pdf/processors/append'
 require 'dragonfly_pdf/processors/page'
 require 'dragonfly_pdf/processors/page_thumb'
+require 'dragonfly_pdf/processors/rotate'
 require 'dragonfly_pdf/processors/stamp'
 require 'dragonfly_pdf/processors/subset_fonts'
 
@@ -39,6 +40,7 @@ module DragonflyPdf
       app.add_processor :append, DragonflyPdf::Processors::Append.new
       app.add_processor :page, DragonflyPdf::Processors::Page.new
       app.add_processor :page_thumb, DragonflyPdf::Processors::PageThumb.new
+      app.add_processor :rotate, DragonflyPdf::Processors::Rotate.new
       app.add_processor :stamp, DragonflyPdf::Processors::Stamp.new
       app.add_processor :subset_fonts, DragonflyPdf::Processors::SubsetFonts.new
     end
