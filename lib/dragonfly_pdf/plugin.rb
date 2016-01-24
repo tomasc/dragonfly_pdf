@@ -23,14 +23,6 @@ module DragonflyPdf
         content.analyse(:pdf_properties)[:page_dimensions]
       end
 
-      app.add_analyser :widths do |content|
-        content.analyse(:pdf_properties)[:widths]
-      end
-
-      app.add_analyser :heights do |content|
-        content.analyse(:pdf_properties)[:heights]
-      end
-
       app.add_analyser :aspect_ratios do |content|
         attrs = content.analyse(:pdf_properties)[:aspect_ratios]
       end
