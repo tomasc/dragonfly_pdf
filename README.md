@@ -57,6 +57,14 @@ It returns a hash of properties:
 
 ## Processors
 
+### Combine
+
+Combine multiple PDFs.
+
+```ruby
+pdf.combine([pdf_1, pdf_2, pdf_3])
+```
+
 ### Page
 
 Extracts page from PDF.
@@ -80,6 +88,14 @@ The available options and their default values are:
     density: 600,
     format: :png,
 }
+```
+
+### Stamp
+
+Stamp every page of a PDF with another PDF.
+
+```ruby
+pdf.stamp(stamp_pdf)
 ```
 
 ### Subset Fonts

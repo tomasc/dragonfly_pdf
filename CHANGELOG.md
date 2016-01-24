@@ -1,3 +1,8 @@
+## 0.1.1
+
+* added: `combine` which allows to combine multiplePDFs together
+* added: `stamp` which allows for stamping all pages of a PDF with content of another PDF
+
 ## 0.1.0
 
 * added: `page_dimensions`
