@@ -6,7 +6,8 @@ rvm:
 before_install:
   - gem update bundler
   - sudo apt-get -qq update
-  - sudo apt-get install -y pdftk=2.01
+  - sudo apt-get install -y pdftk
+  - echo pdftk --version
 notifications:
   email:
     recipients:
