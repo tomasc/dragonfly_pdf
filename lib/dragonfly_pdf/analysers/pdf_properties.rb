@@ -23,14 +23,14 @@ module DragonflyPdf
         page_count = page_dimensions.count
         aspect_ratios = page_dimensions.inject([]) { |res, page| res << (page.first / page.last) }
         page_numbers = (1..page_count).to_a
-        rotate = rotate_data.flatten.map(&:to_f)
+        page_rotations = rotate_data.flatten.map(&:to_f)
 
         {
           aspect_ratios: aspect_ratios,
           page_count: page_count,
           page_dimensions: page_dimensions,
           page_numbers: page_numbers,
-          rotate: rotate
+          page_rotations: page_rotations
         }
       end
 

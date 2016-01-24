@@ -1,6 +1,6 @@
-## 0.2.1
+## 0.2.2
 
-* added: `:rotate` data to `pdf_properties`
+* added: `:page_rotations` data to `pdf_properties`
 
 ## 0.2.0
 

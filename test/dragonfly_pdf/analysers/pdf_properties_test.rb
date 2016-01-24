@@ -41,9 +41,9 @@ module DragonflyPdf
         end
       end
 
-      describe '#rotate' do
+      describe '#page_rotations' do
         it 'returns correct page count' do
-          analyser.call(sample_pages_rotated)[:rotate].must_equal [0.0, 90.0, 180.0, 270.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+          analyser.call(sample_pages_rotated)[:page_rotations].must_equal [0.0, 90.0, 180.0, 270.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
         end
       end
     end
