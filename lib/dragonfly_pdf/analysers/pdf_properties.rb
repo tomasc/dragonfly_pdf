@@ -5,8 +5,10 @@ module DragonflyPdf
         box_type = options.fetch :box_type, 'TrimBox'
 
         box_data = []
+        rotate_data = []
         IO.foreach(content.path, "\n\n", encoding: "ISO-8859-1") do |item|
           box_data += item.scan(/(MediaBox|CropBox|BleedBox|TrimBox)\s?\[([\d\.]+?)\s([\d\.]+?)\s([\d\.]+?)\s([\d\.]+?)\]/)
+          rotate_data += item.scan(/\/Rotate\s(\d+?)\s/)
         end
 
         # drop last value, since that comes from data about all pages
@@ -21,12 +23,14 @@ module DragonflyPdf
         page_count = page_dimensions.count
         aspect_ratios = page_dimensions.inject([]) { |res, page| res << (page.first / page.last) }
         page_numbers = (1..page_count).to_a
+        rotate = rotate_data.flatten.map(&:to_f)
 
         {
           aspect_ratios: aspect_ratios,
           page_count: page_count,
           page_dimensions: page_dimensions,
-          page_numbers: page_numbers
+          page_numbers: page_numbers,
+          rotate: rotate
         }
       end
 

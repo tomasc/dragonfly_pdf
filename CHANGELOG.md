@@ -1,3 +1,7 @@
+## 0.2.1
+
+* added: `:rotate` data to `pdf_properties`
+
 ## 0.2.0
 
 * refactor: read PDF attributes directly

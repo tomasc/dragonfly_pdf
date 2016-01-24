@@ -44,7 +44,8 @@ pdf.pdf_properties # => {
     page_count: 4,
     page_dimensions: [[210.0, 297.0], [210.0, 297.0], [210.0, 297.0], [210.0, 297.0]],
     page_numbers: [1, 2, 3, 4],
-    aspect_ratios: [0.71, 0.71, 0.71, 0.71]
+    aspect_ratios: [0.71, 0.71, 0.71, 0.71],
+    rotate: [0.0, 90.0, 0.0, 0.0]
 }
 ```
 

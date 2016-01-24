@@ -7,6 +7,7 @@ module DragonflyPdf
       let(:analyser) { DragonflyPdf::Analysers::PdfProperties.new }
       let(:sample_pages) { app.fetch_file(SAMPLES_DIR.join('sample_pages.pdf')) }
       let(:sample_pages_with_bleed) { app.fetch_file(SAMPLES_DIR.join('sample_pages_with_bleed.pdf')) }
+      let(:sample_pages_rotated) { app.fetch_file(SAMPLES_DIR.join('sample_pages_rotated.pdf')) }
 
       # =====================================================================
 
@@ -37,6 +38,12 @@ module DragonflyPdf
         it 'returns aspect ratios' do
           analyser.call(sample_pages)[:aspect_ratios].map{ |i| i.round(2) }.must_equal [0.71].cycle.take(10)
           analyser.call(sample_pages_with_bleed)[:aspect_ratios].map{ |i| i.round(2) }.must_equal [0.71].cycle.take(1)
+        end
+      end
+
+      describe '#rotate' do
+        it 'returns correct page count' do
+          analyser.call(sample_pages_rotated)[:rotate].must_equal [0.0, 90.0, 180.0, 270.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
         end
       end
     end

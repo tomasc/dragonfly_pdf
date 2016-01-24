@@ -28,14 +28,6 @@ module DragonflyPdf
         pdf.must_respond_to :page_dimensions
       end
 
-      it 'adds #widths' do
-        pdf.must_respond_to :widths
-      end
-
-      it 'adds #heights' do
-        pdf.must_respond_to :heights
-      end
-
       it 'adds #aspect_ratios' do
         pdf.must_respond_to :aspect_ratios
       end
