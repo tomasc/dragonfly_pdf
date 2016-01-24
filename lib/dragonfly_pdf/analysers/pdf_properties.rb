@@ -3,7 +3,12 @@ module DragonflyPdf
     class PdfProperties
       def call(content, options = {})
         box_type = options.fetch :box_type, 'TrimBox'
-        box_data = content.data.scan(/(MediaBox|CropBox|BleedBox|TrimBox)\s?\[([\d\.]+?)\s([\d\.]+?)\s([\d\.]+?)\s([\d\.]+?)\]/)
+
+        box_data = []
+        IO.foreach(content.path, "\n\n", encoding: "ISO-8859-1") do |item|
+          box_data += item.scan(/(MediaBox|CropBox|BleedBox|TrimBox)\s?\[([\d\.]+?)\s([\d\.]+?)\s([\d\.]+?)\s([\d\.]+?)\]/)
+        end
+
         # drop last value, since that comes from data about all pages
         media_box = box_data.select { |d| d.first == 'MediaBox' }[0..-2]
         desired_box = box_data.select { |d| d.first == box_type }
