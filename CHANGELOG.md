@@ -1,3 +1,7 @@
+## 0.2.4
+
+* added: `:remove_password`
+
 ## 0.2.3
 
 * added: `:page_rotations` data to `pdf_properties`

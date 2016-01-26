@@ -92,6 +92,14 @@ The available options and their default values are:
 }
 ```
 
+### Remove password
+
+Remove password from password protected PDF.
+
+```ruby
+pdf.remove_password
+```
+
 ### Rotate
 
 Rotate all pages.
