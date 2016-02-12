@@ -18,12 +18,14 @@ module DragonflyPdf
       describe '#page_numbers' do
         it 'returns one-dimensional array' do
           analyser.call(sample_pages)[:page_numbers].must_equal (1..10).to_a
+          analyser.call(sample_pages_with_bleed)[:page_numbers].must_equal [1]
         end
       end
 
       describe '#page_count' do
         it 'returns correct page count' do
           analyser.call(sample_pages)[:page_count].must_equal 10
+          analyser.call(sample_pages_with_bleed)[:page_count].must_equal 1
         end
       end
 

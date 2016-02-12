@@ -11,9 +11,11 @@ module DragonflyPdf
           rotate_data += item.scan(/\/Rotate\s(\d+?)\s/)
         end
 
+        media_box = box_data.select{ |d| d.first =~ /mediabox/i }
+        desired_box = box_data.select{ |d| d.first =~ /#{box_type}/i }
+
         # drop last value, since that comes from data about all pages
-        media_box = box_data.select { |d| d.first == 'MediaBox' }[0..-2]
-        desired_box = box_data.select { |d| d.first == box_type }
+        media_box = media_box[0..-2] if media_box.length > 1
 
         page_dimensions = (desired_box.length > 0 ? desired_box : media_box).map do |dim|
           i = dim[1..-1].map(&:to_f).map{ |d| pt2mm(d) }
