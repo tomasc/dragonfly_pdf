@@ -8,8 +8,7 @@ module DragonflyPdf
         @page_number = page_number
         @format = opts['format'] || :png
         @density = opts['density'] || 150
-
-        # fail DragonflyPdf::PageNotFound unless pdf_properties[:page_numbers].include?(@page_number)
+        @crop_args = opts['crop_args']
 
         content.shell_update(ext: @format) do |old_path, new_path|
           "#{convert_command} #{old_path}[#{pdf_page_number}] #{new_path}"
@@ -27,12 +26,8 @@ module DragonflyPdf
 
       private # =============================================================
 
-      def pdf_properties
-        @pdf_properties ||= DragonflyPdf::Analysers::PdfProperties.new.call(@content)
-      end
-
       def convert_command
-        "convert -alpha deactivate -background white -colorspace sRGB -density #{@density}x#{@density} -define pdf:use-cropbox=true -define pdf:use-trimbox=true"
+        "convert -alpha deactivate -background white -colorspace sRGB -density #{@density}x#{@density} -define pdf:use-cropbox=true -define pdf:use-trimbox=true #{@crop_args}"
       end
 
       def pdf_page_number

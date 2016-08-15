@@ -1,2 +1,3 @@
-require "dragonfly_pdf/plugin"
-require "dragonfly_pdf/version"
+require 'dragonfly'
+require 'dragonfly_pdf/plugin'
+require 'dragonfly_pdf/version'

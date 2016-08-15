@@ -19,7 +19,7 @@ module DragonflyPdf
       # ---------------------------------------------------------------------
 
       def get_mime_type(file_path)
-        `file --mime-type #{file_path}`.gsub(/\n/, '')
+        `file --mime-type #{file_path}`.delete("\n")
       end
     end
   end

@@ -9,13 +9,13 @@ module DragonflyPdf
 
       it 'returns PDF by default' do
         processor.call(sample_pages, 1)
-        get_mime_type(sample_pages.path).must_include "application/pdf"
+        get_mime_type(sample_pages.path).must_include 'application/pdf'
       end
 
       private # =============================================================
 
-      def get_mime_type file_path
-        `file --mime-type #{file_path}`.gsub(/\n/, "")
+      def get_mime_type(file_path)
+        `file --mime-type #{file_path}`.delete("\n")
       end
     end
   end

@@ -4,7 +4,7 @@ module DragonflyPdf
       def call(content, arg)
         rotate_args = case arg
                       when String, Symbol
-                        fail ArgumentError.new unless arg =~ /north|south|east|west|left|right|down/i
+                        raise ArgumentError unless arg =~ /north|south|east|west|left|right|down/i
                         "1-end#{arg}"
                       when Hash
                         pdf_properties = DragonflyPdf::Analysers::PdfProperties.new.call(content)
