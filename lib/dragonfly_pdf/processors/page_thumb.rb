@@ -3,15 +3,16 @@ require_relative '../analysers/pdf_properties'
 module DragonflyPdf
   module Processors
     class PageThumb
+      attr_reader :content, :density, :page_number, :format
+
       def call(content, page_number = 1, opts = {})
         @content = content
         @page_number = page_number
         @format = opts['format'] || :png
         @density = opts['density'] || 150
-        @crop_args = opts['crop_args']
 
         content.shell_update(ext: @format) do |old_path, new_path|
-          "#{convert_command} #{old_path}[#{pdf_page_number}] #{new_path}"
+          "#{gs_command} -o '#{new_path}' -f '#{old_path}'"
         end
 
         @content.meta['format'] = @format.to_s
@@ -26,12 +27,18 @@ module DragonflyPdf
 
       private # =============================================================
 
-      def convert_command
-        "convert -alpha deactivate -background white -colorspace sRGB -density #{@density}x#{@density} -define pdf:use-cropbox=true -define pdf:use-trimbox=true #{@crop_args}"
+      def gs_command
+        "gs -sDEVICE=#{gs_format} -r#{density} -dTextAlphaBits=4 -dUseArtBox -dFirstPage=#{page_number} -dLastPage=#{page_number}"
       end
 
-      def pdf_page_number
-        @page_number - 1
+
+      def gs_format
+        case @format
+        when :png then :png16m
+        when :jpg, :jpeg then :jpeg
+        when :tif, :tiff then :tiff48nc
+        else :jpeg
+        end
       end
     end
   end

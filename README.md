@@ -77,7 +77,7 @@ pdf.page(page_number=1)
 
 ### Page Thumb
 
-Generates thumbnail of a specified page, in defined density (dpi) and format.
+Generates thumbnail of a specified page, in defined density (dpi) and format, using GhostScript.
 
 ```ruby
 pdf.page_thumb(page_number=1, opts={})
