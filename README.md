@@ -6,25 +6,32 @@
 
 ## Dependencies
 
-* [libvips](https://github.com/jcupitt/libvips)
-* [GhostScript](http://www.ghostscript.com)
-* [pdftk](https://www.pdflabs.com/tools/pdftk-server)
+- [libvips](https://github.com/jcupitt/libvips)
+- [GhostScript](http://www.ghostscript.com)
+- [pdftk](https://www.pdflabs.com/tools/pdftk-server)
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'dragonfly_pdf'
+```
+gem 'dragonfly_pdf'
+```
 
 And then execute:
 
-    $ bundle
+```
+$ bundle
+```
 
 Or install it yourself as:
 
-    $ gem install dragonfly_pdf
+```
+$ gem install dragonfly_pdf
+```
 
 ## Usage
+
 The analyser and processors are added by configuring the plugin
 
 ```ruby
@@ -69,20 +76,21 @@ pdf.page(page_number=1)
 
 ### Page Thumb
 
-Generates thumbnail of a specified page, in defined density (dpi) and format, using GhostScript.
+Generates thumbnail of a specified page using the `thumb` processor of [DragonflyLibvips](https://github.com/tomasc/dragonfly_libvips).
 
 ```ruby
-pdf.page_thumb(page_number=1, opts={})
+pdf.page_thumb(page_number=1, '500x', opts={})
 ```
 
-The available options and their default values are:
+The default format is `png`, others can be specified
 
 ```ruby
 {
-    density: 600,
-    format: :png,
+    'format' => 'jpg',
 }
 ```
+
+For more options see the [`thumb` doc](https://github.com/tomasc/dragonfly_libvips#thumb).
 
 ### Remove password
 
@@ -101,12 +109,12 @@ pdf.rotate(:left)
 ```
 
 Rotate selected pages.
+
 ```ruby
 pdf.rotate(1 => :left, 3 => :right)
 ```
 
-absolute: `north|south|east|west`
-relative: `left|right|down`
+absolute: `north|south|east|west` relative: `left|right|down`
 
 ### Stamp
 
@@ -126,7 +134,7 @@ pdf.subset_fonts
 
 ## Contributing
 
-1. Fork it ( https://github.com/tomasc/dragonfly_pdf/fork )
+1. Fork it ( <https://github.com/tomasc/dragonfly_pdf/fork> )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

@@ -1,3 +1,7 @@
+## 0.3.0
+
+* refactored: `:page_thumb` now depends on `dragonfly_libvips` for faster processing and ability to specify dimensions (`100x100`) directly
+
 ## 0.2.4
 
 * added: `:remove_password`
