@@ -1,31 +1,16 @@
 module DragonflyPdf
   module Analysers
     class PdfProperties
-      def call(content, options = {})
-        box_type = options.fetch :box_type, 'TrimBox'
+      def call(content, _options = {})
+        data = `pdftk #{content.path} dump_data`
 
-        box_data = []
-        rotate_data = []
-        IO.foreach(content.path, "\n\n", encoding: 'ISO-8859-1') do |item|
-          box_data += item.scan(/(MediaBox|CropBox|BleedBox|TrimBox)\s?\[([\d\.]+?)\s([\d\.]+?)\s([\d\.]+?)\s([\d\.]+?)\]/)
-          rotate_data += item.scan(/\/Rotate\s(\d+?)\s/)
+        page_count = data.scan(/NumberOfPages: (\d+)/).flatten.first.to_i
+        page_numbers = data.scan(/PageMediaNumber: (\d+)/).flatten.map(&:to_i)
+        page_dimensions = data.scan(/PageMediaDimensions:\s*(\d+\.?\d+)\s*(\d+\.?\d+)/).map do |width_height|
+          width_height.map(&:to_f).map { |dim| pt2mm(dim) }
         end
-
-        media_box = box_data.select { |d| d.first =~ /mediabox/i }
-        desired_box = box_data.select { |d| d.first =~ /#{box_type}/i }
-
-        # drop last value, since that comes from data about all pages
-        media_box = media_box[0..-2] if media_box.length > 1
-
-        page_dimensions = (!desired_box.empty? ? desired_box : media_box).map do |dim|
-          i = dim[1..-1].map(&:to_f).map { |d| pt2mm(d) }
-          [i[2] - i[0], i[3] - i[1]]
-        end
-
-        page_count = page_dimensions.count
+        page_rotations = data.scan(/PageMediaRotation: (\d+)/).flatten.map(&:to_f)
         aspect_ratios = page_dimensions.inject([]) { |res, page| res << (page.first / page.last) }
-        page_numbers = (1..page_count).to_a
-        page_rotations = rotate_data.flatten.map(&:to_f)
 
         {
           aspect_ratios: aspect_ratios,

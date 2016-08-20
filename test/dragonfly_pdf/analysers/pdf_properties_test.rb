@@ -18,28 +18,24 @@ module DragonflyPdf
       describe '#page_numbers' do
         it 'returns one-dimensional array' do
           analyser.call(sample_pages)[:page_numbers].must_equal (1..10).to_a
-          analyser.call(sample_pages_with_bleed)[:page_numbers].must_equal [1]
         end
       end
 
       describe '#page_count' do
         it 'returns correct page count' do
           analyser.call(sample_pages)[:page_count].must_equal 10
-          analyser.call(sample_pages_with_bleed)[:page_count].must_equal 1
         end
       end
 
       describe '#page_dimensions' do
         it 'returns array of page dimensions' do
           analyser.call(sample_pages)[:page_dimensions].map { |p| p.map(&:round) }.must_equal [[210, 297]].cycle.take(10)
-          analyser.call(sample_pages_with_bleed)[:page_dimensions].map { |p| p.map(&:round) }.must_equal [[210, 297]].cycle.take(1)
         end
       end
 
       describe '#aspect_ratios' do
         it 'returns aspect ratios' do
           analyser.call(sample_pages)[:aspect_ratios].map { |i| i.round(2) }.must_equal [0.71].cycle.take(10)
-          analyser.call(sample_pages_with_bleed)[:aspect_ratios].map { |i| i.round(2) }.must_equal [0.71].cycle.take(1)
         end
       end
 

@@ -49,14 +49,6 @@ pdf.pdf_properties # => {
 }
 ```
 
-Optionally pass box type (`MediaBox|CropBox|BleedBox|TrimBox`):
-
-```ruby
-pdf.pdf_properties(box_type: 'MediaBox')
-```
-
-By default `TrimBox`, with a fallback to `MediaBox`.
-
 ## Processors
 
 ### Append
