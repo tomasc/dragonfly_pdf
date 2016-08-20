@@ -6,7 +6,7 @@
 
 ## Dependencies
 
-* [ImageMagick](http://www.imagemagick.org)
+* [libvips](https://github.com/jcupitt/libvips)
 * [GhostScript](http://www.ghostscript.com)
 * [pdftk](https://www.pdflabs.com/tools/pdftk-server)
 
