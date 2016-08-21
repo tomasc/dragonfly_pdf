@@ -50,7 +50,7 @@ module DragonflyPdf
       app.add_processor :page_thumb do |content, page_number, dimensions, options|
         options ||= {}
         options['format'] ||= 'png'
-        options['input_args'] = "page=#{page_number - 1}"
+        options['input_args'] = [options['input_args'], "page=#{page_number - 1}"].compact.join(',')
         content.process!(:thumb, dimensions, options)
       end
     end
