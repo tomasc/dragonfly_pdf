@@ -67,7 +67,7 @@ module DragonflyPdf
       describe 'page_thumb' do
         it 'encodes the image to the correct format' do
           pdf.page_thumb!(1, '600x')
-          `file --mime-type #{pdf.path}`.must_include 'image/png'
+          `file --mime-type #{pdf.path}`.must_include 'image/jpeg'
         end
       end
     end

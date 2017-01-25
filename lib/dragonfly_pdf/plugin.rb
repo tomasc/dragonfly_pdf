@@ -1,3 +1,5 @@
+require 'active_support/core_ext/hash'
+
 require 'dragonfly_pdf/analysers/pdf_properties'
 require 'dragonfly_pdf/processors/append'
 require 'dragonfly_pdf/processors/page'
@@ -6,9 +8,9 @@ require 'dragonfly_pdf/processors/rotate'
 require 'dragonfly_pdf/processors/stamp'
 require 'dragonfly_pdf/processors/subset_fonts'
 
+require 'dragonfly_libvips'
 require 'dragonfly_libvips/analysers/image_properties'
 require 'dragonfly_libvips/processors/thumb'
-require 'dragonfly_libvips/processors/vipsthumbnail'
 
 module DragonflyPdf
   class Plugin
@@ -46,12 +48,11 @@ module DragonflyPdf
       app.add_processor :subset_fonts, DragonflyPdf::Processors::SubsetFonts.new
 
       app.add_processor :thumb, DragonflyLibvips::Processors::Thumb.new
-      app.add_processor :vipsthumbnail, DragonflyLibvips::Processors::Vipsthumbnail.new
-      app.add_processor :page_thumb do |content, page_number, dimensions, options|
-        options ||= {}
-        options['format'] ||= 'png'
-        options['input_args'] = [options['input_args'], "page=#{page_number - 1}"].compact.join(',')
-        content.process!(:thumb, dimensions, options)
+      app.add_processor :page_thumb do |content, page_number, geometry, options = {}|
+        options = options.deep_stringify_keys
+        options.fetch('input_options', {})['page'] = page_number-1
+        options['format'] ||= 'jpg'
+        content.process!(:thumb, geometry, options)
       end
     end
   end

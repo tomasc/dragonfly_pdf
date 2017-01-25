@@ -1,3 +1,7 @@
+## 1.0.0
+
+* updated: `:page_thumb` now uses `dragonfly_libvips ~> 1.0.0`, optimized using `vips-ruby`
+
 ## 0.3.0
 
 * refactored: `:page_thumb` now depends on `dragonfly_libvips` for faster processing and ability to specify dimensions (`100x100`) directly
