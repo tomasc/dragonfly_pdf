@@ -5,17 +5,20 @@ sudo: required
 dist: trusty
 rvm:
   - 2.2.5
-env:
-  - LIBVIPS_VERSION_MAJOR=8 LIBVIPS_VERSION_MINOR=3 LIBVIPS_VERSION_PATCH=3 LIBVIPS_VERSION=$LIBVIPS_VERSION_MAJOR.$LIBVIPS_VERSION_MINOR.$LIBVIPS_VERSION_PATCH
+
 before_install:
   - gem update bundler
   - sudo apt-get update
   - sudo apt-get install -y pdftk
-  - curl -s https://raw.githubusercontent.com/lovell/sharp/master/preinstall.sh | sudo bash -
+  - sudo apt-get install -y gobject-introspection libgirepository1.0-dev libglib2.0-dev libpoppler-glib-dev
+  - curl -O http://www.vips.ecs.soton.ac.uk/supported/8.4/vips-8.4.5.tar.gz
+  - tar zvxf vips-8.4.5.tar.gz && cd vips-8.4.5 && ./configure && sudo make && sudo make install
+  - export GI_TYPELIB_PATH=/usr/local/lib/girepository-1.0/
+  - sudo ldconfig
+
 notifications:
   email:
     recipients:
       - tomas.celizna@gmail.com
-      - asger@8kilo.com
     on_failure: change
     on_success: never
