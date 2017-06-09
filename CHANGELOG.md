@@ -1,3 +1,9 @@
+# CHANGELOG
+
+## 1.1.0
+
+* match `dragonfly_libvips` dependency
+
 ## 1.0.0
 
 * updated: `:page_thumb` now uses `dragonfly_libvips ~> 1.0.0`, optimized using `vips-ruby`
