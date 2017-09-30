@@ -7,7 +7,7 @@ module DragonflyPdf
         end
       end
 
-      private # =============================================================
+      private
 
       def gs_command
         'gs -dNOPAUSE -dBATCH -sDEVICE=pdfwrite'

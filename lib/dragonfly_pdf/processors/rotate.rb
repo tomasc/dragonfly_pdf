@@ -16,7 +16,7 @@ module DragonflyPdf
         end
       end
 
-      private # =============================================================
+      private
 
       def pdftk_command
         'pdftk'
