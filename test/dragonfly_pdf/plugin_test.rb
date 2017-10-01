@@ -70,15 +70,15 @@ module DragonflyPdf
           `file --mime-type #{pdf.path}`.must_include 'image/jpeg'
         end
 
-        it 'converts PDF page to SVG format' do
-          pdf.page_thumb!(1, nil, format: :svg)
-          `file --mime-type #{pdf.path}`.must_include 'image/svg+xml'
-        end
-
-        it 'converts PDF page to PDF format' do
-          pdf.page_thumb!(1, nil, format: :pdf)
-          `file --mime-type #{pdf.path}`.must_include 'application/pdf'
-        end
+        # it 'converts PDF page to SVG format' do
+        #   pdf.page_thumb!(1, nil, format: :svg)
+        #   `file --mime-type #{pdf.path}`.must_include 'image/svg+xml'
+        # end
+        #
+        # it 'converts PDF page to PDF format' do
+        #   pdf.page_thumb!(1, nil, format: :pdf)
+        #   `file --mime-type #{pdf.path}`.must_include 'application/pdf'
+        # end
       end
     end
   end
