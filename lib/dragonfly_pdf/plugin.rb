@@ -52,13 +52,19 @@ module DragonflyPdf
 
       app.add_processor :thumb, DragonflyLibvips::Processors::Thumb.new
 
-      app.add_processor :page_thumb do |content, page, geometry=nil, options = {}|
+      app.add_processor :page_thumb do |content, page, geometry = nil, options = {}|
         options = options.deep_symbolize_keys
-
-        content.process!(:convert, page, geometry, options)
-
         options[:format] = options.fetch(:format, :jpg)
-        unless %i(pdf png svg).include?(options[:format].to_sym)
+
+        convert_options = {}
+        convert_options[:format] = case options[:format]
+                                   when :pdf, :svg then options[:format]
+                                   else :png
+        end
+
+        content.process!(:convert, page, geometry, convert_options)
+
+        unless %i[pdf png svg].include?(options[:format].to_sym)
           content.process!(:thumb, geometry, options)
         end
       end
