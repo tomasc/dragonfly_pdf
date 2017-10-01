@@ -8,7 +8,7 @@ rvm:
 
 before_install:
   - gem update bundler
-  - sudo add-apt-repository ppa:ubuntuhandbook1/apps
+  - sudo add-apt-repository -y ppa:ubuntuhandbook1/apps
   - sudo apt-get update
   - sudo apt-get install -y pdftk
   - sudo apt-get install -y mupdf-tools
