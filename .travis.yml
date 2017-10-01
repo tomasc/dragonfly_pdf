@@ -14,6 +14,7 @@ before_install:
   - curl -OL https://github.com/jcupitt/libvips/releases/download/v8.5.8/vips-8.5.8.tar.gz
   - tar zvxf vips-8.5.8.tar.gz && cd vips-8.5.8 && ./configure && sudo make && sudo make install
   - export GI_TYPELIB_PATH=/usr/local/lib/girepository-1.0/
+  - sudo apt-get install -y freetype2 jbig2dec libjpeg62-turbo-dev libopenjpeg-dev zlib1g-dev
   - curl -OL https://mupdf.com/downloads/mupdf-1.11-source.tar.gz
   - tar zvxf mupdf-1.11-source.tar.gz && cd mupdf-1.11-source && make HAVE_X11=no HAVE_GLFW=no prefix=/usr/local install
   - sudo ldconfig
