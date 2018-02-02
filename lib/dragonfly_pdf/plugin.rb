@@ -1,7 +1,9 @@
 require 'active_support/core_ext/hash'
 
 require 'dragonfly_pdf/analysers/pdf_properties'
+
 require 'dragonfly_pdf/processors/append'
+require 'dragonfly_pdf/processors/convert'
 require 'dragonfly_pdf/processors/page'
 require 'dragonfly_pdf/processors/remove_password'
 require 'dragonfly_pdf/processors/rotate'
@@ -41,6 +43,7 @@ module DragonflyPdf
       # ---------------------------------------------------------------------
 
       app.add_processor :append, DragonflyPdf::Processors::Append.new
+      app.add_processor :convert, DragonflyPdf::Processors::Convert.new
       app.add_processor :page, DragonflyPdf::Processors::Page.new
       app.add_processor :remove_password, DragonflyPdf::Processors::RemovePassword.new
       app.add_processor :rotate, DragonflyPdf::Processors::Rotate.new
@@ -48,11 +51,22 @@ module DragonflyPdf
       app.add_processor :subset_fonts, DragonflyPdf::Processors::SubsetFonts.new
 
       app.add_processor :thumb, DragonflyLibvips::Processors::Thumb.new
-      app.add_processor :page_thumb do |content, page_number, geometry, options = {}|
-        options = options.deep_stringify_keys
-        options.fetch('input_options', {})['page'] = page_number-1
-        options['format'] ||= 'jpg'
-        content.process!(:thumb, geometry, options)
+
+      app.add_processor :page_thumb do |content, page, geometry = nil, options = {}|
+        options = options.deep_symbolize_keys
+        options[:format] = options.fetch(:format, :jpg)
+
+        convert_options = {}
+        convert_options[:format] = case options[:format]
+                                   when :pdf, :svg then options[:format]
+                                   else :png
+        end
+
+        content.process!(:convert, page, geometry, convert_options)
+
+        unless %i[pdf png svg].include?(options[:format].to_sym)
+          content.process!(:thumb, geometry, options)
+        end
       end
     end
   end

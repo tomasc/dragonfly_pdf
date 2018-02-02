@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.0.0
+
+* PDF rendering to use `mupdf` which results in siginificant performance boost
+
 ## 1.1.0
 
 * match `dragonfly_libvips` dependency

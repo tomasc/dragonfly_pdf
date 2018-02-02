@@ -8,11 +8,14 @@ rvm:
 
 before_install:
   - gem update bundler
+  - sudo add-apt-repository -y ppa:ubuntuhandbook1/apps
   - sudo apt-get update
   - sudo apt-get install -y pdftk
+  - sudo apt-get install -y ghostscript
+  - sudo apt-get install -y mupdf-tools
   - sudo apt-get install -y gobject-introspection libgirepository1.0-dev libglib2.0-dev libpoppler-glib-dev
-  - curl -OL https://github.com/jcupitt/libvips/releases/download/v8.5.6/vips-8.5.6.tar.gz
-  - tar zvxf vips-8.5.6.tar.gz && cd vips-8.5.6 && ./configure && sudo make && sudo make install
+  - curl -OL https://github.com/jcupitt/libvips/releases/download/v8.5.8/vips-8.5.8.tar.gz
+  - tar zvxf vips-8.5.8.tar.gz && cd vips-8.5.8 && ./configure && sudo make && sudo make install
   - export GI_TYPELIB_PATH=/usr/local/lib/girepository-1.0/
   - sudo ldconfig
 

@@ -21,7 +21,7 @@ module DragonflyPdf
         }
       end
 
-      private # =============================================================
+      private
 
       def pt2mm(pt)
         (pt / 72.0) * 25.4

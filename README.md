@@ -8,6 +8,7 @@
 
 - [libvips](https://github.com/jcupitt/libvips)
 - [GhostScript](http://www.ghostscript.com)
+- [mupdf](https://mupdf.com)
 - [pdftk](https://www.pdflabs.com/tools/pdftk-server)
 
 ## Installation
