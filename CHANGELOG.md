@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.0.1
+
+* fixed: `:page_thumb` and `:convert` now correctly updates meta data and extension on the url
+
 ## 2.0.0
 
 * PDF rendering to use `mupdf` which results in siginificant performance boost
