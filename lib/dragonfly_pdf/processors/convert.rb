@@ -50,14 +50,16 @@ module DragonflyPdf
           `mv #{content.path.sub(".#{format}", "1.#{format}")} #{content.path}`
         end
 
+        content.meta['format'] = format.to_s
         content.ext = format
+        content.meta['mime_type'] = nil # don't need it as we have ext now
       end
 
-      def update_url(url_attributes, _, options = {})
+      def update_url(attrs, page, geometry=nil, options = {})
         options = options.deep_symbolize_keys
         format = options.fetch(:format, :png)
 
-        url_attributes.ext = format
+        attrs.ext = format.to_s
       end
 
       private

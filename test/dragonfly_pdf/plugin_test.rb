@@ -63,22 +63,9 @@ module DragonflyPdf
       end
     end
 
-    describe 'DragonflyLibvips proxy' do
-      describe 'page_thumb' do
-        it 'converts PDF to JPG format' do
-          pdf.page_thumb!(1, '600x')
-          `file --mime-type #{pdf.path}`.must_include 'image/jpeg'
-        end
-
-        # it 'converts PDF page to SVG format' do
-        #   pdf.page_thumb!(1, nil, format: :svg)
-        #   `file --mime-type #{pdf.path}`.must_include 'image/svg+xml'
-        # end
-        #
-        # it 'converts PDF page to PDF format' do
-        #   pdf.page_thumb!(1, nil, format: :pdf)
-        #   `file --mime-type #{pdf.path}`.must_include 'application/pdf'
-        # end
+    describe '#convert' do
+      it 'adds the correct extension to resulting url' do
+        pdf.convert(1, '600x').url.must_match /\.png/
       end
     end
   end

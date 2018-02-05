@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2.0.1
+
+* fixed: a bug in Convert and Page Thumb Processors which caused the url to not include file extension
+* refactored: Page Thumb Processor is now a class
+* added: tests for Convert and Page Thumb Processor
+
 ## 2.0.0
 
 * PDF rendering to use `mupdf` which results in siginificant performance boost
