@@ -4,6 +4,7 @@ require 'dragonfly_pdf/analysers/pdf_properties'
 
 require 'dragonfly_pdf/processors/append'
 require 'dragonfly_pdf/processors/convert'
+require 'dragonfly_pdf/processors/page_thumb'
 require 'dragonfly_pdf/processors/page'
 require 'dragonfly_pdf/processors/remove_password'
 require 'dragonfly_pdf/processors/rotate'
@@ -49,25 +50,8 @@ module DragonflyPdf
       app.add_processor :rotate, DragonflyPdf::Processors::Rotate.new
       app.add_processor :stamp, DragonflyPdf::Processors::Stamp.new
       app.add_processor :subset_fonts, DragonflyPdf::Processors::SubsetFonts.new
-
       app.add_processor :thumb, DragonflyLibvips::Processors::Thumb.new
-
-      app.add_processor :page_thumb do |content, page, geometry = nil, options = {}|
-        options = options.deep_symbolize_keys
-        options[:format] = options.fetch(:format, :jpg)
-
-        convert_options = {}
-        convert_options[:format] = case options[:format]
-                                   when :pdf, :svg then options[:format]
-                                   else :png
-        end
-
-        content.process!(:convert, page, geometry, convert_options)
-
-        unless %i[pdf png svg].include?(options[:format].to_sym)
-          content.process!(:thumb, geometry, options)
-        end
-      end
+      app.add_processor :page_thumb, DragonflyPdf::Processors::PageThumb.new
     end
   end
 end
