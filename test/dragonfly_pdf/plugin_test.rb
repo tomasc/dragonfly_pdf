@@ -5,8 +5,6 @@ module DragonflyPdf
     let(:app) { test_app.configure_with(:pdf) }
     let(:pdf) { app.fetch_file(SAMPLES_DIR.join('sample_pages.pdf')) }
 
-    # ---------------------------------------------------------------------
-
     describe 'analysers' do
       it 'adds #pdf_properties' do
         pdf.must_respond_to :pdf_properties
@@ -37,8 +35,6 @@ module DragonflyPdf
       end
     end
 
-    # ---------------------------------------------------------------------
-
     describe 'processors' do
       it 'adds #append' do
         pdf.must_respond_to :append
@@ -63,10 +59,10 @@ module DragonflyPdf
       end
     end
 
-    describe '#convert' do
-      it 'adds the correct extension to resulting url' do
-        pdf.convert(1, '600x').url.must_match /\.png/
-      end
-    end
+    # describe '#convert' do
+    #   it 'adds the correct extension to resulting url' do
+    #     pdf.convert(1, '600x').url.must_match /\.png/
+    #   end
+    # end
   end
 end

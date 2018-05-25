@@ -2,6 +2,8 @@ module DragonflyPdf
   module Analysers
     class PdfProperties
       def call(content, _options = {})
+        return {} unless SUPPORTED_FORMATS.include?(content.ext)
+
         data = `pdftk #{content.path} dump_data`
 
         page_count = data.scan(/NumberOfPages: (\d+)/).flatten.first.to_i
@@ -13,11 +15,12 @@ module DragonflyPdf
         aspect_ratios = page_dimensions.inject([]) { |res, page| res << (page.first / page.last) }
 
         {
-          aspect_ratios: aspect_ratios,
-          page_count: page_count,
-          page_dimensions: page_dimensions,
-          page_numbers: page_numbers,
-          page_rotations: page_rotations
+          'format' => content.ext.try(:downcase),
+          'aspect_ratios' => aspect_ratios,
+          'page_count' => page_count,
+          'page_dimensions' => page_dimensions,
+          'page_numbers' => page_numbers,
+          'page_rotations' => page_rotations
         }
       end
 

@@ -22,26 +22,24 @@ module DragonflyPdf
       app.add_analyser :pdf_properties, DragonflyPdf::Analysers::PdfProperties.new
 
       app.add_analyser :page_count do |content|
-        content.analyse(:pdf_properties)[:page_count]
+        content.analyse(:pdf_properties)['page_count']
       end
 
       app.add_analyser :page_numbers do |content|
-        content.analyse(:pdf_properties)[:page_numbers]
+        content.analyse(:pdf_properties)['page_numbers']
       end
 
       app.add_analyser :page_dimensions do |content|
-        content.analyse(:pdf_properties)[:page_dimensions]
+        content.analyse(:pdf_properties)['page_dimensions']
       end
 
       app.add_analyser :page_rotations do |content|
-        content.analyse(:pdf_properties)[:page_rotations]
+        content.analyse(:pdf_properties)['page_rotations']
       end
 
       app.add_analyser :aspect_ratios do |content|
-        content.analyse(:pdf_properties)[:aspect_ratios]
+        content.analyse(:pdf_properties)['aspect_ratios']
       end
-
-      # ---------------------------------------------------------------------
 
       app.add_processor :append, DragonflyPdf::Processors::Append.new
       app.add_processor :convert, DragonflyPdf::Processors::Convert.new

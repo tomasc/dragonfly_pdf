@@ -7,6 +7,8 @@ module DragonflyPdf
       DPI = 600
 
       def call(content, page, geometry=nil, options = {})
+        raise UnsupportedFormat unless SUPPORTED_FORMATS.include?(content.ext)
+
         options = options.deep_symbolize_keys
         format = options.fetch(:format, :png)
 
