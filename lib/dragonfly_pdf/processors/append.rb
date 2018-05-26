@@ -4,7 +4,7 @@ module DragonflyPdf
       def call(content, pdfs_to_append, options = {})
         raise UnsupportedFormat unless SUPPORTED_FORMATS.include?(content.ext)
 
-        content.shell_update(ext: :pdf) do |old_path, new_path|
+        content.shell_update(ext: 'pdf') do |old_path, new_path|
           "#{pdftk_command} #{old_path} #{pdfs_to_append.map(&:path).join(' ')} cat output #{new_path}"
         end
       end

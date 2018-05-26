@@ -3,8 +3,8 @@ module DragonflyPdf
     class SubsetFonts
       def call(content, _opts = {})
         raise UnsupportedFormat unless SUPPORTED_FORMATS.include?(content.ext)
-        
-        content.shell_update(ext: :pdf) do |old_path, new_path|
+
+        content.shell_update(ext: 'pdf') do |old_path, new_path|
           "#{gs_command} -o #{new_path} -f #{old_path}"
         end
       end

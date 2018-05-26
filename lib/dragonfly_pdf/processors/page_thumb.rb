@@ -3,8 +3,8 @@ module DragonflyPdf
     class PageThumb
       def call(content, page, geometry = nil, options = {})
         raise UnsupportedFormat unless SUPPORTED_FORMATS.include?(content.ext)
-        
-        options = options.deep_stringify_keys
+
+        options = options.each_with_object({}) { |(k, v), memo| memo[k.to_s] = v } # stringify keys
         format = options.delete('format') { 'jpg' }.to_s
 
         convert(content, page, geometry, format)
@@ -19,8 +19,8 @@ module DragonflyPdf
       end
 
       def update_url(attrs, _page, _geometry = nil, options = {})
-        options = options.deep_stringify_keys
-        attrs.ext = options.fetch(:format, 'jpg').to_s
+        options = options.each_with_object({}) { |(k, v), memo| memo[k.to_s] = v } # stringify keys
+        attrs.ext = options.fetch('format', 'jpg').to_s
       end
 
       private
@@ -30,11 +30,13 @@ module DragonflyPdf
                             when 'pdf', 'svg' then format
                             else 'png'
         end
+
         Convert.new.call(content, page, geometry, 'format' => convert_to_format)
       end
 
       def thumb(content, geometry, format, options)
-        DragonflyLibvips::Processors::Thumb.new.call(content, geometry, options.merge('format' => format))
+        options['format'] = format
+        DragonflyLibvips::Processors::Thumb.new.call(content, geometry, options)
       end
     end
   end
