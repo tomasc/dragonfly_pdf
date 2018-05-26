@@ -12,6 +12,12 @@ module DragonflyPdf
         options = options.each_with_object({}) { |(k, v), memo| memo[k.to_s] = v } # stringify keys
         format = options.fetch('format', 'png').to_s
 
+        if content.mime_type == Rack::Mime.mime_type(".#{format}")
+          content.ext ||= format
+          content.meta['format'] = format
+          return
+        end
+
         case format
         when 'pdf'
           pdf_options = options.fetch('pdf_options', 'compress,compress-fonts,compress-images,linearize,sanitize,garbage=deduplicate')
