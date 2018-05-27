@@ -31,6 +31,8 @@ module DragonflyPdf
       app.add_processor :stamp, Processors::Stamp.new
       app.add_processor :subset_fonts, Processors::SubsetFonts.new
       app.add_processor :page_thumb, Processors::PageThumb.new
+
+      app.define(:encode) { convert }
     end
   end
 end

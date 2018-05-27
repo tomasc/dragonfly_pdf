@@ -17,6 +17,8 @@ module DragonflyPdf
 
     describe 'processors' do
       it { content.must_respond_to :append }
+      it { content.must_respond_to :convert }
+      it { content.must_respond_to :encode }
       it { content.must_respond_to :page }
       it { content.must_respond_to :page_thumb }
       it { content.must_respond_to :remove_password }
