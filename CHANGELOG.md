@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2.1.0
+
+* add `SUPPORTED_FORMATS` and `SUPPORTED_OUTPUT_FORMATS` and raise errors when formats are not matching
+* add more thorough tests for supported formats
+
 ## 2.0.1
 
 * fixed: a bug in Convert and Page Thumb Processors which caused the url to not include file extension

@@ -47,6 +47,7 @@ List of supported formats is available as:
 
 ```ruby
 DragonflyPdf::SUPPORTED_FORMATS # => ["pdf"]
+DragonflyPdf::SUPPORTED_OUTPUT_FORMATS # => ["pdf", "svg", …]
 ```
 
 ## Analysers

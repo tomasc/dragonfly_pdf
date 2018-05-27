@@ -15,7 +15,7 @@ module DragonflyPdf
         aspect_ratios = page_dimensions.inject([]) { |res, page| res << (page.first / page.last) }
 
         {
-          'format' => content.ext.try(:downcase),
+          'format' => content.ext.downcase,
           'aspect_ratios' => aspect_ratios,
           'page_count' => page_count,
           'page_dimensions' => page_dimensions,
