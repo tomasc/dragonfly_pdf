@@ -12,6 +12,7 @@ describe DragonflyPdf::Processors::Convert do
         result.ext.must_equal format
         result.mime_type.must_equal Rack::Mime.mime_type(".#{format}")
         result.size.must_be :>, 0
+        result.tempfile.path.must_match /\.#{format}\z/
       end
     end
   end
@@ -20,10 +21,5 @@ describe DragonflyPdf::Processors::Convert do
     let (:url_attributes) { OpenStruct.new }
     before { processor.update_url(url_attributes, 1) }
     it { url_attributes.ext.must_equal 'png' }
-  end
-
-  describe 'tempfile has extension' do
-    let(:format) { 'png' }
-    it { content.convert(1, '300x', format: format).tempfile.path.must_match /\.#{format}\z/ }
   end
 end
