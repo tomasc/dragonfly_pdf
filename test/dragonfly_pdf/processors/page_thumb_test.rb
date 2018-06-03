@@ -19,4 +19,9 @@ describe DragonflyPdf::Processors::PageThumb do
       it { url_attributes.ext.must_equal 'jpg' }
     end
   end
+
+  describe 'tempfile has extension' do
+    before { processor.call(content, 1, '600x') }
+    it { content.tempfile.path.must_match /\.jpg\z/ }
+  end
 end

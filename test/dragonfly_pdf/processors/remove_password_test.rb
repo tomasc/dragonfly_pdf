@@ -8,4 +8,8 @@ describe DragonflyPdf::Processors::RemovePassword do
   before { processor.call(content, 1) }
 
   it { `pdftk #{content.path} dump_data`.wont_include 'OWNER PASSWORD REQUIRED' }
+
+  describe 'tempfile has extension' do
+    it { content.tempfile.path.must_match /\.pdf\z/ }
+  end
 end

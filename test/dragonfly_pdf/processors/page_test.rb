@@ -12,4 +12,8 @@ describe DragonflyPdf::Processors::Page do
     before { processor.call(content, 1) }
     it { content.analyse(:page_count).must_equal 1 }
   end
+
+  describe 'tempfile has extension' do
+    it { processor.call(content, 1).tempfile.path.must_match /\.pdf\z/ }
+  end
 end

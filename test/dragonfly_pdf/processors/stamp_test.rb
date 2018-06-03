@@ -11,4 +11,8 @@ describe DragonflyPdf::Processors::Stamp do
 
   it { content.analyse(:page_count).must_equal 10 }
   it { PDF::Reader.new(content.path).pages.map(&:text).must_equal %w(STAMP).cycle(10).to_a }
+
+  describe 'tempfile has extension' do
+    it { content.tempfile.path.must_match /\.pdf\z/ }
+  end
 end

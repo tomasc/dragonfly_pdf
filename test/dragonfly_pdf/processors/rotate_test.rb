@@ -14,4 +14,9 @@ describe DragonflyPdf::Processors::Rotate do
     before { processor.call(content, 1 => :left, 3 => :right) }
     it { content.analyse(:page_rotations).must_equal [270, 0.0, 90, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] }
   end
+
+  describe 'tempfile has extension' do
+    before { processor.call(content, :left) }
+    it { content.tempfile.path.must_match /\.pdf\z/ }
+  end
 end
