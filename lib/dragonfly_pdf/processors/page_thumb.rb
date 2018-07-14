@@ -2,38 +2,41 @@ module DragonflyPdf
   module Processors
     class PageThumb
       def call(content, page, geometry = nil, options = {})
-        options = options.deep_symbolize_keys
-        format = options.delete(:format) { :jpg }
+        raise UnsupportedFormat unless SUPPORTED_FORMATS.include?(content.ext)
+
+        options = options.each_with_object({}) { |(k, v), memo| memo[k.to_s] = v } # stringify keys
+        format = options.delete('format') { 'jpg' }.to_s
 
         convert(content, page, geometry, format)
 
-        unless %i[pdf png svg].include?(format.to_sym)
+        unless %w[pdf png svg].include?(format)
           thumb(content, geometry, format, options)
         end
 
-        content.meta['format'] = format.to_s
+        content.meta['format'] = format
         content.ext = format
         content.meta['mime_type'] = nil # don't need it as we have ext now
       end
 
-      def update_url(attrs, page, geometry=nil, options = {})
-        options = options.deep_symbolize_keys
-        format = options.fetch(:format, :jpg)
-        attrs.ext = format.to_s
+      def update_url(attrs, _page, _geometry = nil, options = {})
+        options = options.each_with_object({}) { |(k, v), memo| memo[k.to_s] = v } # stringify keys
+        attrs.ext = options.fetch('format', 'jpg').to_s
       end
 
-      private # =============================================================
+      private
 
       def convert(content, page, geometry, format)
-        convert_format = case format
-                         when :pdf, :svg then format
-                         else :png
+        convert_to_format = case format
+                            when 'pdf', 'svg' then format
+                            else 'png'
         end
-        content.process!(:convert, page, geometry, { format: convert_format })
+
+        Convert.new.call(content, page, geometry, 'format' => convert_to_format)
       end
 
       def thumb(content, geometry, format, options)
-        content.process!(:thumb, geometry, options.merge(format: format))
+        options['format'] = format
+        DragonflyLibvips::Processors::Thumb.new.call(content, geometry, options)
       end
     end
   end

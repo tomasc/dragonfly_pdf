@@ -41,6 +41,15 @@ Dragonfly.app.configure do
 end
 ```
 
+## Supported Formats
+
+List of supported formats is available as:
+
+```ruby
+DragonflyPdf::SUPPORTED_FORMATS # => ["pdf"]
+DragonflyPdf::SUPPORTED_OUTPUT_FORMATS # => ["pdf", "svg", …]
+```
+
 ## Analysers
 
 ### PDF properties
