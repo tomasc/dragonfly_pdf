@@ -2,7 +2,8 @@ module DragonflyPdf
   module Analysers
     class PdfProperties
       def call(content, options = {})
-        return {} unless SUPPORTED_FORMATS.include?(content.ext)
+        return {} unless content.ext
+        return {} unless SUPPORTED_FORMATS.include?(content.ext.downcase)
 
         data = `pdftk #{content.path} dump_data`
 

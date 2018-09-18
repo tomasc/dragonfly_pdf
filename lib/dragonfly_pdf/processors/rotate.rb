@@ -2,7 +2,8 @@ module DragonflyPdf
   module Processors
     class Rotate
       def call(content, arg)
-        raise UnsupportedFormat unless SUPPORTED_FORMATS.include?(content.ext)
+        raise UnsupportedFormat unless content.ext
+        raise UnsupportedFormat unless SUPPORTED_FORMATS.include?(content.ext.downcase)
 
         rotate_args = case arg
                       when String, Symbol

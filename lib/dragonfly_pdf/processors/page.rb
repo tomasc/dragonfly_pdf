@@ -4,7 +4,8 @@ module DragonflyPdf
   module Processors
     class Page
       def call(content, page_number = 1, _opts = {})
-        raise UnsupportedFormat unless SUPPORTED_FORMATS.include?(content.ext)
+        raise UnsupportedFormat unless content.ext
+        raise UnsupportedFormat unless SUPPORTED_FORMATS.include?(content.ext.downcase)
 
         pdf_properties = DragonflyPdf::Analysers::PdfProperties.new.call(content)
         raise DragonflyPdf::PageNotFound unless pdf_properties['page_numbers'].include?(page_number)

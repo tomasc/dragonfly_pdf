@@ -7,12 +7,13 @@ module DragonflyPdf
       DPI = 600
 
       def call(content, page, geometry = nil, options = {})
-        raise UnsupportedFormat unless SUPPORTED_FORMATS.include?(content.ext)
+        raise UnsupportedFormat unless content.ext
+        raise UnsupportedFormat unless SUPPORTED_FORMATS.include?(content.ext.downcase)
 
         options = options.each_with_object({}) { |(k, v), memo| memo[k.to_s] = v } # stringify keys
         format = options.fetch('format', 'png').to_s
 
-        raise UnsupportedOutputFormat unless SUPPORTED_OUTPUT_FORMATS.include?(format)
+        raise UnsupportedOutputFormat unless SUPPORTED_OUTPUT_FORMATS.include?(format.downcase)
 
         case format
         when 'pdf'

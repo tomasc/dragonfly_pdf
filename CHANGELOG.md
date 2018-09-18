@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.1.1
+
+* improved `SUPPORTED_FORMATS` matching that ignores case
+
 ## 2.1.0
 
 * add `SUPPORTED_FORMATS` and `SUPPORTED_OUTPUT_FORMATS` and raise errors when formats are not matching
