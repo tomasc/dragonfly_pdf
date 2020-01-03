@@ -10,7 +10,7 @@ module DragonflyPdf
         raise UnsupportedFormat unless content.ext
         raise UnsupportedFormat unless SUPPORTED_FORMATS.include?(content.ext.downcase)
 
-        options = options.each_with_object({}) { |(k, v), memo| memo[k.to_s] = v } # stringify keys
+        options = DragonflyPdf.stringify_keys(options)
         format = options.fetch('format', 'png').to_s
 
         raise UnsupportedOutputFormat unless SUPPORTED_OUTPUT_FORMATS.include?(format.downcase)
@@ -38,7 +38,7 @@ module DragonflyPdf
           input_options['access'] = input_options.fetch('access', 'sequential')
           input_options['dpi'] = input_options.fetch('dpi', DPI)
 
-          img = ::Vips::Image.new_from_file(content.path, input_options)
+          img = ::Vips::Image.new_from_file(content.path, DragonflyPdf.symbolize_keys(input_options))
 
           dimensions = case geometry
                        when DragonflyLibvips::Processors::Thumb::RESIZE_GEOMETRY
