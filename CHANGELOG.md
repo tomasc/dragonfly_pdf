@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2.2.0
+
+* upgrade `dragonfly_libvips` to `~> 2.4.0`
+* symbolize keys passed to `ruby-vips`
+
 ## 2.1.1
 
 * improved `SUPPORTED_FORMATS` matching that ignores case
