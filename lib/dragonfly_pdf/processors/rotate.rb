@@ -15,7 +15,7 @@ module DragonflyPdf
         end
 
         content.shell_update(ext: 'pdf') do |old_path, new_path|
-          "#{pdftk_command} #{old_path} cat #{rotate_args} output #{new_path}"
+          "#{pdftk_command} \"#{old_path}\" cat #{rotate_args} output #{new_path}"
         end
       end
 

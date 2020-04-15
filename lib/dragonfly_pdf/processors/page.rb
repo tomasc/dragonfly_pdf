@@ -11,7 +11,7 @@ module DragonflyPdf
         raise DragonflyPdf::PageNotFound unless pdf_properties['page_numbers'].include?(page_number)
 
         content.shell_update(ext: 'pdf') do |old_path, new_path|
-          "#{gs_command} -dFirstPage=#{page_number} -dLastPage=#{page_number} -o #{new_path} -f #{old_path}"
+          "#{gs_command} -dFirstPage=#{page_number} -dLastPage=#{page_number} -o \"#{new_path}\" -f \"#{old_path}\""
         end
       end
 

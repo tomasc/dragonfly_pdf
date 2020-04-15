@@ -6,7 +6,7 @@ module DragonflyPdf
         raise UnsupportedFormat unless SUPPORTED_FORMATS.include?(content.ext.downcase)
 
         content.shell_update(ext: 'pdf') do |old_path, new_path|
-          "#{gs_command} -q -sOutputFile=#{new_path} -c .setpdfwrite -f #{old_path}"
+          "#{gs_command} -q -sOutputFile=\"#{new_path}\" -c .setpdfwrite -f \"#{old_path}\""
         end
       end
 
