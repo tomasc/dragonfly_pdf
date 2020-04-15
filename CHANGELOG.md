@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.2.1
+
+* all paths in quotes
+
 ## 2.2.0
 
 * upgrade `dragonfly_libvips` to `~> 2.4.0`

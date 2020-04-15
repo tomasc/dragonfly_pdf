@@ -20,14 +20,14 @@ module DragonflyPdf
           pdf_options = options.fetch('pdf_options', 'compress,compress-fonts,compress-images,linearize,sanitize,garbage=deduplicate')
 
           content.shell_update(ext: format) do |old_path, new_path|
-            "#{convert_command} -o #{new_path} -F #{format} -O #{pdf_options} #{old_path} #{page}"
+            "#{convert_command} -o \"#{new_path}\" -F #{format} -O #{pdf_options} \"#{old_path}\" #{page}"
           end
 
         when 'svg'
           text = options.fetch('text', 'path')
 
           content.shell_update(ext: format) do |old_path, new_path|
-            "#{convert_command} -o #{new_path} -F #{format} -O text=#{text} #{old_path} #{page}"
+            "#{convert_command} -o \"#{new_path}\" -F #{format} -O text=#{text} \"#{old_path}\" #{page}"
           end
 
           # MuPDF appends 1 at the end of the filename, we need to rename it back
@@ -50,11 +50,11 @@ module DragonflyPdf
           width = dimensions.width.ceil
 
           content.shell_update(ext: format) do |old_path, new_path|
-            "#{convert_command} -o #{new_path} -F #{format} -O width=#{width},colorspace=rgb #{old_path} #{page}"
+            "#{convert_command} -o \"#{new_path}\" -F #{format} -O width=#{width},colorspace=rgb \"#{old_path}\" #{page}"
           end
 
           # MuPDF appends 1 at the end of the filename, we need to rename it back
-          `mv #{content.path.sub(".#{format}", "1.#{format}")} #{content.path}`
+          `mv \"#{content.path.sub(".#{format}", "1.#{format}")}\" \"#{content.path}\"`
         end
 
         content.meta['format'] = format

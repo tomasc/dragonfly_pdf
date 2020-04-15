@@ -5,7 +5,7 @@ module DragonflyPdf
         return {} unless content.ext
         return {} unless SUPPORTED_FORMATS.include?(content.ext.downcase)
 
-        data = `pdftk #{content.path} dump_data`
+        data = `pdftk "#{content.path}" dump_data`
 
         page_count = data.scan(/NumberOfPages: (\d+)/).flatten.first.to_i
         page_numbers = data.scan(/PageMediaNumber: (\d+)/).flatten.map(&:to_i)
