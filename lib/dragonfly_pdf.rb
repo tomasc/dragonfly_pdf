@@ -8,7 +8,7 @@ module DragonflyPdf
   class UnsupportedFormat < RuntimeError; end
 
   SUPPORTED_FORMATS = %w[pdf].freeze
-  SUPPORTED_OUTPUT_FORMATS = %w[png pam pbm pkm pnm pdf tga svg].uniq.sort
+  SUPPORTED_OUTPUT_FORMATS = %w[png pam pbm pkm pnm pdf svg].uniq.sort
 
   private
 
