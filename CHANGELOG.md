@@ -2,6 +2,8 @@
 
 ## Next
 
+## 2.2.2
+
 * removed `tga` from `SUPPORTED_OUTPUT_FORMATS`
 * fixed `page_dimensions` calculation for sizes larger than 1000 pts
 
