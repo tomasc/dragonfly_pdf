@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## Next
+
+* removed `tga` from `SUPPORTED_OUTPUT_FORMATS`
+* fixed `page_dimensions` calculation for sizes larger than 1000 pts
+
 ## 2.2.1
 
 * all paths in quotes

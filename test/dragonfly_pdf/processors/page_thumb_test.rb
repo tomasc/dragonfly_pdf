@@ -14,14 +14,14 @@ describe DragonflyPdf::Processors::PageThumb do
         processor.update_url(url_attributes, 1)
       end
 
-      it { content.ext.must_equal 'jpg' }
-      it { content.meta['format'].must_equal 'jpg' }
-      it { url_attributes.ext.must_equal 'jpg' }
+      it { _(content.ext).must_equal 'jpg' }
+      it { _(content.meta['format']).must_equal 'jpg' }
+      it { _(url_attributes.ext).must_equal 'jpg' }
     end
   end
 
   describe 'tempfile has extension' do
     before { processor.call(content, 1, '600x') }
-    it { content.tempfile.path.must_match /\.jpg\z/ }
+    it { _(content.tempfile.path).must_match /\.jpg\z/ }
   end
 end
