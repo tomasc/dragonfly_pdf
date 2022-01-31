@@ -7,16 +7,16 @@ describe DragonflyPdf::Processors::Rotate do
 
   describe 'String|Symbol' do
     before { processor.call(content, :left) }
-    it { content.analyse(:page_rotations).must_equal [270, 270, 270, 270, 270, 270, 270, 270, 270, 270] }
+    it { _(content.analyse(:page_rotations)).must_equal [270, 270, 270, 270, 270, 270, 270, 270, 270, 270] }
   end
 
   describe 'arg is Hash' do
     before { processor.call(content, 1 => :left, 3 => :right) }
-    it { content.analyse(:page_rotations).must_equal [270, 0.0, 90, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] }
+    it { _(content.analyse(:page_rotations)).must_equal [270, 0.0, 90, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] }
   end
 
   describe 'tempfile has extension' do
     before { processor.call(content, :left) }
-    it { content.tempfile.path.must_match /\.pdf\z/ }
+    it { _(content.tempfile.path).must_match /\.pdf\z/ }
   end
 end

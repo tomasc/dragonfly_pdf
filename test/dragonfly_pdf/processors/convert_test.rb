@@ -9,10 +9,10 @@ describe DragonflyPdf::Processors::Convert do
     DragonflyPdf::SUPPORTED_OUTPUT_FORMATS.each do |format|
       it(format) do
         result = content.convert(1, '600x', format: format)
-        result.ext.must_equal format
-        result.mime_type.must_equal Rack::Mime.mime_type(".#{format}")
-        result.size.must_be :>, 0
-        result.tempfile.path.must_match /\.#{format}\z/
+        _(result.ext).must_equal format
+        _(result.mime_type).must_equal Rack::Mime.mime_type(".#{format}")
+        _(result.size).must_be :>, 0
+        _(result.tempfile.path).must_match /\.#{format}\z/
       end
     end
   end
@@ -20,6 +20,6 @@ describe DragonflyPdf::Processors::Convert do
   describe 'url' do
     let (:url_attributes) { OpenStruct.new }
     before { processor.update_url(url_attributes, 1) }
-    it { url_attributes.ext.must_equal 'png' }
+    it { _(url_attributes.ext).must_equal 'png' }
   end
 end

@@ -12,6 +12,6 @@ describe DragonflyPdf::Processors::SubsetFonts do
 
   describe 'tempfile has extension' do
     before { processor.call(content, 1) }
-    it { content.tempfile.path.must_match /\.pdf\z/ }
+    it { _(content.tempfile.path).must_match /\.pdf\z/ }
   end
 end
