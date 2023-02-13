@@ -2,6 +2,8 @@
 
 ## Next
 
+## 2.2.3
+
 * ruby 3 compatibility
 * upgrade `dragonfly_libvips` to `>= 2.5.1`
 
