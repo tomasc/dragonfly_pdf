@@ -38,7 +38,7 @@ module DragonflyPdf
           input_options['access'] = input_options.fetch('access', 'sequential')
           input_options['dpi'] = input_options.fetch('dpi', DPI)
 
-          img = ::Vips::Image.new_from_file(content.path, DragonflyPdf.symbolize_keys(input_options))
+          img = ::Vips::Image.new_from_file(content.path, **DragonflyPdf.symbolize_keys(input_options))
 
           dimensions = case geometry
                        when DragonflyLibvips::Processors::Thumb::RESIZE_GEOMETRY
