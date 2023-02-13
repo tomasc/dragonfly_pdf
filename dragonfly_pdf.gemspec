@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'dragonfly', '~> 1.0'
-  spec.add_dependency 'dragonfly_libvips', '~> 2.4.0'
+  spec.add_dependency 'dragonfly_libvips', '~> 2.4'
 
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'guard'
