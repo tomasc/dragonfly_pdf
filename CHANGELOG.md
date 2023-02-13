@@ -2,6 +2,9 @@
 
 ## Next
 
+* ruby 3 compatibility
+* upgrade `dragonfly_libvips` to `>= 2.5.1`
+
 ## 2.2.2
 
 * removed `tga` from `SUPPORTED_OUTPUT_FORMATS`
